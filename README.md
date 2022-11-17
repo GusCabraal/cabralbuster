@@ -1,9 +1,9 @@
 # Projeto Cabralbuster
 
-> Status do projeto: Em andamento :hourglass_not_done:
+> Status do projeto: Em andamento ⏳
 
 
-## Descrição do projeto
+## Descrição do projeto :dvd:
 
 Uma locadora de filmes que vai matar sua nostalgia dos anos 90.
 
