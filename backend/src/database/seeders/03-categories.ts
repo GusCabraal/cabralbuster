@@ -2,31 +2,27 @@ import { QueryInterface, DataTypes } from 'sequelize';
 
 export default {
   up: async (queryInterface: QueryInterface) => {
-    await queryInterface.bulkInsert('directors', [
+    await queryInterface.bulkInsert('categories', [
       {
         id: 1,
-        name: 'Quentin Tarantino',
+        name: 'Ação',
       },
       {
         id: 2,
-        name: 'Martin Scorsese',
+        name: 'Drama',
       },
       {
         id: 3,
-        name: 'Steven Spielberg',
+        name: 'Ficção científica',
       },
       {
         id: 4,
-        name: 'James Cameron',
-      },
-      {
-        id: 5,
-        name: 'Fernando Meirelles',
+        name: 'Suspense',
       },
     ]);
   },
 
   down: async (queryInterface: QueryInterface) => {
-    await queryInterface.bulkDelete('directors', {});
+    await queryInterface.bulkDelete('categories', {});
   },
 };
