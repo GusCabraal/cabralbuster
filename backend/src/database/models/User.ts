@@ -7,7 +7,7 @@ class User extends Model {
   declare username: string;
   declare email: string;
   declare password: string;
-  declare role: string;
+  declare admin: boolean;
   declare image?: string;
 }
 
@@ -43,6 +43,7 @@ User.init(
   {
     sequelize: database,
     tableName: 'users',
+    timestamps: false
   },
 );
 
