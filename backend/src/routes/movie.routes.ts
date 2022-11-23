@@ -9,5 +9,6 @@ const service = new Service(repository);
 const controller = new Controller(service);
 
 router.get('/', controller.findAll);
+router.get('/:id', controller.findById);
 
 export default router;

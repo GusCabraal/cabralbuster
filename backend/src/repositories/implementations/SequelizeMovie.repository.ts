@@ -17,4 +17,17 @@ export default class SequelizeUsersRepository implements IMovieRepository {
 
     return movies;
   };
+
+  public findById = async (id:string) => {
+    const movies = await this._model.findOne({
+      include: [
+        { model: CategoryModel, as: 'category', attributes: { exclude: ['id'] } },
+        { model: DirectorModel, as: 'director', attributes: { exclude: ['id'] } },
+      ],
+      attributes: { exclude: ['directorId', 'categoryId', 'director_id', 'category_id'] },
+      where: { id },
+    });
+
+    return movies;
+  };
 }

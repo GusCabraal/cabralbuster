@@ -16,4 +16,12 @@ export default class MovieController {
     return res.status(StatusCodes.OK).json(movies);
   };
 
+  public findById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const movie = await this._movieService.findById(id);
+
+    return res.status(StatusCodes.OK).json(movie);
+  };
+
 }
