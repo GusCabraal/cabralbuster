@@ -7,7 +7,7 @@ export default class SequelizeUsersRepository implements IUsersRepository {
   public findByEmail = async (email: string) => {
     const user = await this._model.findOne({
       where: { email },
-      attributes: {exclude: ['password']},
+      raw: true
     });
 
     return user;

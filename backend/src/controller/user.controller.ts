@@ -10,6 +10,13 @@ export default class UserController {
     this._userService = userService;
   }
 
+  public login = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    const token = await this._userService.login(email, password);
+    return res.status(StatusCodes.OK).json({ token });
+  };
+
   public findByEmail = async (req: Request, res: Response) => {
     const { email } = req.params;
 
