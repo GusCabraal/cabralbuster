@@ -23,6 +23,7 @@ Director.init(
   {
     sequelize: database,
     tableName: 'directors',
+    timestamps: false
   },
 );
 

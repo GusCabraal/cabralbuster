@@ -23,6 +23,7 @@ Category.init(
   {
     sequelize: database,
     tableName: 'categories',
+    timestamps: false
   },
 );
 
