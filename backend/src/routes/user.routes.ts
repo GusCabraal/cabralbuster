@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import UsersRepository from '../repositories/implementations/SequelizeUser.repository';
-import UserService from '../service/user.service';
-import UserController from '../controller/user.controller';
+import Repository from '../repositories/implementations/SequelizeUser.repository';
+import Service from '../service/implementations/user.service';
+import Controller from '../controller/user.controller';
 
-const usersRouter = Router();
-const usersRepository = new UsersRepository();
-const userService = new UserService(usersRepository);
-const userController = new UserController(userService);
+const router = Router();
+const repository = new Repository();
+const service = new Service(repository);
+const controller = new Controller(service);
 
-usersRouter.get('/:email', userController.findByEmail);
+router.get('/:email', controller.findByEmail);
 
-export default usersRouter;
+export default router;
