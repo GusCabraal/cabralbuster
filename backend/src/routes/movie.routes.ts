@@ -10,5 +10,6 @@ const controller = new Controller(service);
 
 router.get('/', controller.findAll);
 router.get('/:id', controller.findById);
+router.post('/', controller.create);
 
 export default router;

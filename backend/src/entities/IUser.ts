@@ -6,3 +6,10 @@ export interface IUser {
     image?: string;
     admin: boolean;
   }  
+export interface IUserDTO {
+    id: number;
+    username: string;
+    email: string;
+    image?: string;
+    admin: boolean;
+  }  
