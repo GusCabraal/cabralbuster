@@ -24,4 +24,12 @@ export default class UserController {
     return res.status(StatusCodes.OK).json(user);
   };
 
+
+  public findMoviesInRentalByUserId = async (req: Request, res: Response) => {
+    const {params: { id }, headers: { authorization }} = req;
+
+    const movies = await this._userService.findMoviesInRentalByUserId(Number(id), authorization);
+
+    return res.status(StatusCodes.OK).json(movies);
+  };
 }

@@ -4,6 +4,8 @@ import database from '.';
 
 import Category from './Category';
 import Director from './Director';
+import MovieUser from './MovieUser';
+import User from './User';
 
 class Movie extends Model {
   declare id: number;
@@ -72,5 +74,8 @@ Movie.init(
 
 Movie.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
 Movie.belongsTo(Director, { foreignKey: 'director_id', as: 'director' });
+
+Movie.belongsToMany(User, {through: MovieUser, as: 'users', foreignKey: 'movie_id', otherKey: 'user_id'});
+User.belongsToMany(Movie, {through: MovieUser, as: 'movies', foreignKey: 'user_id', otherKey: 'movie_id'});
 
 export default Movie;

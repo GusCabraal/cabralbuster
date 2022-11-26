@@ -1,8 +1,8 @@
 import MovieModel from '../../database/models/Movie';
 import CategoryModel from '../../database/models/Category';
 import DirectorModel from '../../database/models/Director';
+import { IMovieDTO } from '../../entities/IMovie';
 import IMovieRepository from '../interfaces/IMovie.repository';
-import { IMovieDTO, IMovie } from '../../entities/IMovie';
 
 export default class SequelizeUsersRepository implements IMovieRepository {
   private _model = MovieModel;
@@ -31,11 +31,12 @@ export default class SequelizeUsersRepository implements IMovieRepository {
 
     return movies;
   };
-
-  public create = async(movie: IMovieDTO) => {
+  
+  public create = async({name, description, releaseYear, imdbRating, directorId, categoryId, image = ''}: IMovieDTO) => {
     
-    const newMovie = await this._model.create(movie);
-
+    const newMovie = await this._model.create({name, description, releaseYear, imdbRating, directorId, categoryId, image });
+    
     return newMovie;
   };
+
 }

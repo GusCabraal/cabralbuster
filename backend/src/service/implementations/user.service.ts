@@ -1,6 +1,7 @@
 import IUsersRepository from '../../repositories/interfaces/IUser.repository';
 import NotFoundError from '../../utils/errors/NotFoundError';
 import UnauthorizedError from '../../utils/errors/UnauthorizedError';
+import authenticate from '../../utils/helpers/authenticate';
 import TokenManager from '../../utils/helpers/tokenManager';
 
 export default class UserService {
@@ -32,4 +33,17 @@ export default class UserService {
     return user;
   };
 
+
+  public findMoviesInRentalByUserId = async (id: number, token:string | undefined) => {
+
+    const { id: userId, admin} = await authenticate(token);
+
+    if(id !== userId){
+      if(!admin) throw new UnauthorizedError('Acesso não autorizado')
+    } 
+
+    const movies = await this._usersRepository.findMoviesInRentalByUserId(id);
+
+    return movies;
+  };
 }
