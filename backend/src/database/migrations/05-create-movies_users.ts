@@ -4,7 +4,10 @@ export default {
   up: async (queryInterface: QueryInterface, Sequelize: typeof DataTypes) => {
     await queryInterface.createTable('movies_users', {
       movieId: {
+        primaryKey: true,
         type: Sequelize.INTEGER,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'movies',
           key: 'id',
@@ -12,7 +15,10 @@ export default {
         field: 'movie_id',
       },
       userId: {
+        primaryKey: true,
         type: Sequelize.INTEGER,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'users',
           key: 'id',

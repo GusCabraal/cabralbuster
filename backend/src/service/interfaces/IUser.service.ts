@@ -4,5 +4,6 @@ export default interface IUserService {
   login(email: string, password: string): Promise<String | null>;
   findAll(token: string | undefined): Promise<IUser[]>;
   findByEmail(email: string): Promise<IUser | null>;
+  deleteById(id: string, token:string | undefined): Promise<void>;
   findMoviesInRentalByUserId(id: number, token:string | undefined): Promise<IUser[]>;
 }

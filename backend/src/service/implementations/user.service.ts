@@ -35,6 +35,7 @@ export default class UserService {
 
     return users;
   };
+
   public findByEmail = async (email: string) => {
     const user = await this._usersRepository.findByEmail(email);
 
@@ -42,7 +43,14 @@ export default class UserService {
     
     return user;
   };
+  public deleteById = async (id: string, token: string | undefined) => {
 
+    const { admin } = await authenticate(token);
+
+    if(!admin) throw new UnauthorizedError('Acesso não autorizado')
+    
+    await this._usersRepository.deleteById(id);
+  };
 
   public findMoviesInRentalByUserId = async (id: number, token:string | undefined) => {
 

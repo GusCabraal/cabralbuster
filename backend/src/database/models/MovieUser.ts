@@ -1,8 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 
 import database from '.';
-import Movie from './Movie';
-import User from './User';
 
 class MovieUser extends Model {
   declare movie_id: number;
@@ -12,7 +10,10 @@ class MovieUser extends Model {
 MovieUser.init(
   {
     movieId: {
+      primaryKey: true,
       type: DataTypes.INTEGER,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
       references: {
         model: 'movies',
         key: 'id',
@@ -20,7 +21,10 @@ MovieUser.init(
       field: 'movie_id',
     },
     userId: {
+      primaryKey: true,
       type: DataTypes.INTEGER,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
       references: {
         model: 'users',
         key: 'id',
@@ -34,5 +38,6 @@ MovieUser.init(
     timestamps: false
   },
 );
+
 
 export default MovieUser;

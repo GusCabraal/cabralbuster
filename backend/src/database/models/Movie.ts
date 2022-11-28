@@ -75,7 +75,7 @@ Movie.init(
 Movie.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
 Movie.belongsTo(Director, { foreignKey: 'director_id', as: 'director' });
 
-Movie.belongsToMany(User, {through: MovieUser, as: 'users', foreignKey: 'movie_id', otherKey: 'user_id'});
-User.belongsToMany(Movie, {through: MovieUser, as: 'movies', foreignKey: 'user_id', otherKey: 'movie_id'});
+Movie.belongsToMany(User, {through: MovieUser, as: 'users', foreignKey: 'movie_id', otherKey: 'userId'});
+User.belongsToMany(Movie, {through: MovieUser, as: 'movies', foreignKey: 'userId', otherKey: 'movie_id'});
 
 export default Movie;

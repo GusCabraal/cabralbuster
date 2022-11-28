@@ -1,4 +1,5 @@
 import UserModel from '../../database/models/User';
+import MovieUserModel from '../../database/models/MovieUser';
 import IUsersRepository from '../interfaces/IUser.repository';
 import MovieModel from '../../database/models/Movie';
 import CategoryModel from '../../database/models/Category';
@@ -23,6 +24,17 @@ export default class SequelizeUsersRepository implements IUsersRepository {
     });
 
     return user;
+  };
+
+  public deleteById = async (id: string) => {
+    await MovieUserModel.destroy({
+      where: { userId: id },
+    });
+    const deleteId = await this._model.destroy({
+      where: { id },
+    });
+
+    console.log(deleteId);
   };
 
   public findMoviesInRentalByUserId = async (id:number) => {

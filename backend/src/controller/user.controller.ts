@@ -33,6 +33,14 @@ export default class UserController {
   };
 
 
+  public deleteById = async (req: Request, res: Response) => {
+    const {params: { id }, headers: { authorization }} = req;
+
+    await this._userService.deleteById(id, authorization);
+
+    return res.sendStatus(StatusCodes.NO_CONTENT);
+  };
+
   public findMoviesInRentalByUserId = async (req: Request, res: Response) => {
     const {params: { id }, headers: { authorization }} = req;
 
