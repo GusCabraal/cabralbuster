@@ -41,6 +41,14 @@ export default class UserController {
     return res.sendStatus(StatusCodes.NO_CONTENT);
   };
 
+  public deleteUserLogged = async (req: Request, res: Response) => {
+    const { headers: { authorization }} = req;
+
+    await this._userService.deleteUserLogged(authorization);
+
+    return res.sendStatus(StatusCodes.NO_CONTENT);
+  };
+
   public findMoviesInRentalByUserId = async (req: Request, res: Response) => {
     const {params: { id }, headers: { authorization }} = req;
 

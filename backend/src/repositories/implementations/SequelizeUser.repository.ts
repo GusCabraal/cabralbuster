@@ -26,7 +26,7 @@ export default class SequelizeUsersRepository implements IUsersRepository {
     return user;
   };
 
-  public deleteById = async (id: string) => {
+  public deleteById = async (id: string | number) => {
     await MovieUserModel.destroy({
       where: { userId: id },
     });

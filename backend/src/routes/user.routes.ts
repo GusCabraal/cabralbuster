@@ -11,6 +11,7 @@ const controller = new Controller(service);
 router.get('/', controller.findAll);
 router.get('/:email', controller.findByEmail);
 router.get('/:id/movies', controller.findMoviesInRentalByUserId);
+router.delete('/me', controller.deleteUserLogged);
 router.delete('/:id', controller.deleteById);
 
 export default router;

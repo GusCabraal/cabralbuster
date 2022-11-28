@@ -52,6 +52,13 @@ export default class UserService {
     await this._usersRepository.deleteById(id);
   };
 
+  public deleteUserLogged = async (token: string | undefined) => {
+
+    const { id } = await authenticate(token);
+
+    await this._usersRepository.deleteById(id);
+  };
+
   public findMoviesInRentalByUserId = async (id: number, token:string | undefined) => {
 
     const { id: userId, admin} = await authenticate(token);
