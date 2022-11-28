@@ -15,7 +15,6 @@ function Login() {
     event.preventDefault();
     try {
       const { data: { token } } = await httpRequest.post('/login', { email, password });
-      console.log(token);
       localStorage.setItem('token', token);
       history.push('/movies');
     } catch (error) {
