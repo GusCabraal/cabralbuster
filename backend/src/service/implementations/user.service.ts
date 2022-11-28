@@ -25,6 +25,16 @@ export default class UserService {
     return token;
   };
 
+  public findAll = async (token: string) => {
+
+    const { admin } = await authenticate(token);
+
+    if(!admin) throw new UnauthorizedError('Acesso não autorizado')
+    
+    const users = await this._usersRepository.findAll();
+
+    return users;
+  };
   public findByEmail = async (email: string) => {
     const user = await this._usersRepository.findByEmail(email);
 

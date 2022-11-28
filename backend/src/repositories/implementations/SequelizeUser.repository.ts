@@ -8,6 +8,14 @@ import DirectorModel from '../../database/models/Director';
 export default class SequelizeUsersRepository implements IUsersRepository {
   private _model = UserModel;
 
+  public findAll = async () => {
+    const users = await this._model.findAll({
+      raw: true
+    });
+
+    return users;
+  };
+
   public findByEmail = async (email: string) => {
     const user = await this._model.findOne({
       where: { email },

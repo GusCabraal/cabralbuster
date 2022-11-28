@@ -17,6 +17,14 @@ export default class UserController {
     return res.status(StatusCodes.OK).json({ token });
   };
 
+  public findAll = async (req: Request, res: Response) => {
+    const {headers: { authorization }} = req;
+
+    const users = await this._userService.findAll(authorization);
+    
+    return res.status(StatusCodes.OK).json(users);
+  };
+
   public findByEmail = async (req: Request, res: Response) => {
     const { email } = req.params;
 
