@@ -12,6 +12,7 @@ app.use(cors())
 app.use('/login', loginRoutes);
 app.use('/users', userRoutes);
 app.use('/movies', movieRoutes);
+app.use(express.static('public'));
 app.use(handleErrors)
 
 export default app;

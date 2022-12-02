@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import httpRequest from '../axios/config';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MIN_PASSWORD_LENGTH = 6;
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  const history = useHistory();
+  const navigate = useNavigate();
   
-  
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
       const { data: { token } } = await httpRequest.post('/login', { email, password });
       localStorage.setItem('token', token);
-      history.push('/movies');
+      navigate('/movies');
     } catch (error) {
-      setError(error.message);
+      setError((error as Error).message);
     }
   };
   return (
