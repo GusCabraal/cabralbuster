@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import httpRequest from '../axios/config';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import axios, { AxiosError } from 'axios';
 
 const MIN_PASSWORD_LENGTH = 6;
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
   
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
-    try {
-      const { data: { token } } = await httpRequest.post('/login', { email, password });
-      localStorage.setItem('token', token);
-      navigate('/movies');
-    } catch (error) {
-      setError((error as Error).message);
-    }
+    mutation.mutate()
   };
+  
+  const mutation = useMutation({
+    mutationFn: (() => {
+      return httpRequest.post('/login', { email, password })
+      .then((response) => response.data)
+    }),
+    onSuccess: (data) => {
+      localStorage.setItem('user', JSON.stringify(data));
+      navigate('/movies')
+      },
+      onError: (err: Error | AxiosError) => {
+        if (axios.isAxiosError(err))  {
+          setLoginError(true)
+        }     
+      }
+    })
   return (
     <div>
       <main>
@@ -35,7 +47,6 @@ function Login() {
             onChange={ (e) => setPassword(e.target.value) }
             placeholder="Digite sua senha"
           />
-          {error && <p>{error}</p>}
           <button
             type="submit"
             disabled={ !(email.match(/\S+@\S+\.\S+/) && password.length > MIN_PASSWORD_LENGTH) }
@@ -43,6 +54,7 @@ function Login() {
             Enter
           </button>
         </form>
+        {loginError && <p>Usuario não encontrado</p>}
       </main>
     </div>
   );
