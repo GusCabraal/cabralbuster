@@ -22,7 +22,7 @@ export default class UserService {
     
     const token = TokenManager.makeToken(userWithoutPassword);
     
-    return token;
+    return {...userWithoutPassword, token };
   };
 
   public findAll = async (token: string) => {

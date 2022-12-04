@@ -1,7 +1,7 @@
 import MovieModel from '../../database/models/Movie';
 import CategoryModel from '../../database/models/Category';
 import DirectorModel from '../../database/models/Director';
-import { IMovieDTO } from '../../entities/IMovie';
+import { IMovie, IMovieDTO, ISimpleMovie } from '../../entities/IMovie';
 import IMovieRepository from '../interfaces/IMovie.repository';
 
 export default class SequelizeUsersRepository implements IMovieRepository {
@@ -9,14 +9,10 @@ export default class SequelizeUsersRepository implements IMovieRepository {
 
   public findAll = async () => {
     const movies = await this._model.findAll({
-      include: [
-        { model: CategoryModel, as: 'category', attributes: { exclude: ['id'] } },
-        { model: DirectorModel, as: 'director', attributes: { exclude: ['id'] } },
-      ],
-      attributes: { exclude: ['directorId', 'categoryId', 'director_id', 'category_id'] }
+      attributes: ['id', 'name', 'image']
     });
 
-    return movies;
+    return movies as ISimpleMovie[];
   };
 
   public findById = async (id:string) => {
@@ -29,14 +25,14 @@ export default class SequelizeUsersRepository implements IMovieRepository {
       where: { id },
     });
 
-    return movies;
+    return movies as IMovie;
   };
   
-  public create = async({name, description, releaseYear, imdbRating, directorId, categoryId, image = ''}: IMovieDTO) => {
+  public create = async({name, description, releaseYear, imdbRating, directorId, categoryId, image}: IMovieDTO) => {
     
     const newMovie = await this._model.create({name, description, releaseYear, imdbRating, directorId, categoryId, image });
     
-    return newMovie;
+    return newMovie as IMovie;
   };
 
 }

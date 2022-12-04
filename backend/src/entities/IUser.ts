@@ -13,12 +13,12 @@ export interface IUserDTO {
     image?: string;
     admin: boolean;
   }  
+export interface IUserLoginDTO extends IUserDTO {
+    token: string
+  }  
 export interface ITokenDTO {
   data: {
-    id: number;
-    username: string;
-    email: string;
-    image?: string;
-    admin: boolean;
+    user: IUserDTO;
+    token: string;
   }
 }  

@@ -1,7 +1,7 @@
-import { IUser } from '../../entities/IUser';
+import { IUser, IUserLoginDTO } from '../../entities/IUser';
 
 export default interface IUserService {
-  login(email: string, password: string): Promise<String | null>;
+  login(email: string, password: string): Promise<IUserLoginDTO>;
   findAll(token: string | undefined): Promise<IUser[]>;
   findByEmail(email: string): Promise<IUser | null>;
   deleteById(id: string, token:string | undefined): Promise<void>;

@@ -9,7 +9,7 @@ export default {
         email: 'cabral@cabralbuster.com',
         password: 'senhaDificilima',
         admin: true,
-        image: 'lalalla'
+        image: 'http://localhost:3001/images/cabral_profile.jpeg'
       },
       {
         id: 2,
@@ -17,7 +17,7 @@ export default {
         email: 'django@livre.com',
         password: 'Broomhilda',
         admin: false,
-        image: 'lalalla',
+        image: 'http://localhost:3001/images/django_perfil.jpg',
       },
       {
         id: 3,
@@ -25,7 +25,7 @@ export default {
         email: 't800@skynet.com',
         password: 'sarahConnor',
         admin: false,
-        image: 'lalalla'
+        image: 'http://localhost:3001/images/rocky_profile.jpg',
       },
     ]);
   },

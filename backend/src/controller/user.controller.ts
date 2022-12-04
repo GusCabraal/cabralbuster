@@ -13,8 +13,8 @@ export default class UserController {
   public login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    const token = await this._userService.login(email, password);
-    return res.status(StatusCodes.OK).json({ token });
+    const user = await this._userService.login(email, password);
+    return res.status(StatusCodes.OK).json(user);
   };
 
   public findAll = async (req: Request, res: Response) => {
