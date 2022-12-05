@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { IMovieDTO } from '../entities/IMovie';
 
 import IMovieService from '../service/interfaces/IMovie.service';
 

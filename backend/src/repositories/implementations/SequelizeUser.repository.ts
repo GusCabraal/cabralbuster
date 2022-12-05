@@ -2,8 +2,7 @@ import UserModel from '../../database/models/User';
 import MovieUserModel from '../../database/models/MovieUser';
 import IUsersRepository from '../interfaces/IUser.repository';
 import MovieModel from '../../database/models/Movie';
-import CategoryModel from '../../database/models/Category';
-import DirectorModel from '../../database/models/Director';
+import { IUserMovies } from '../../entities/IUser';
 
 
 export default class SequelizeUsersRepository implements IUsersRepository {
@@ -34,19 +33,14 @@ export default class SequelizeUsersRepository implements IUsersRepository {
       where: { id },
     });
 
-    console.log(deleteId);
   };
 
   public findMoviesInRentalByUserId = async (id:number) => {
-    const movies = await this._model.findAll({
+    const movies = await this._model.findOne({
       where: { id },
       include: [
         { model: MovieModel, as: 'movies', through: { attributes: [] },
-        attributes: { exclude: ['directorId', 'categoryId', 'director_id', 'category_id'] },
-          include:[
-          { model: CategoryModel, as: 'category', attributes: { exclude: ['id'] } },
-          { model: DirectorModel, as: 'director', attributes: { exclude: ['id'] } },
-        ] },
+        attributes: ['id', 'name', 'image'],},
       ],
       attributes: {exclude:['password']}
     });

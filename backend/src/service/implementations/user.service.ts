@@ -67,8 +67,10 @@ export default class UserService {
       if(!admin) throw new UnauthorizedError('Acesso não autorizado')
     } 
 
-    const movies = await this._usersRepository.findMoviesInRentalByUserId(id);
+    const userMovies = await this._usersRepository.findMoviesInRentalByUserId(id);
 
-    return movies;
+    if(!userMovies) throw new NotFoundError('User not found');
+    
+    return userMovies;
   };
 }

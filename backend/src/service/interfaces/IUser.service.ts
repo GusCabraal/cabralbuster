@@ -1,4 +1,4 @@
-import { IUser, IUserLoginDTO } from '../../entities/IUser';
+import { IUser, IUserLoginDTO, IUserMovies } from '../../entities/IUser';
 
 export default interface IUserService {
   login(email: string, password: string): Promise<IUserLoginDTO>;
@@ -6,5 +6,5 @@ export default interface IUserService {
   findByEmail(email: string): Promise<IUser | null>;
   deleteById(id: string, token:string | undefined): Promise<void>;
   deleteUserLogged(token:string | undefined): Promise<void>
-  findMoviesInRentalByUserId(id: number, token:string | undefined): Promise<IUser[]>;
+  findMoviesInRentalByUserId(id: number, token:string | undefined): Promise<IUserMovies>;
 }
