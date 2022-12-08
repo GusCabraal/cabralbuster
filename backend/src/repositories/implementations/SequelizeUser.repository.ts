@@ -2,8 +2,6 @@ import UserModel from '../../database/models/User';
 import MovieUserModel from '../../database/models/MovieUser';
 import IUsersRepository from '../interfaces/IUser.repository';
 import MovieModel from '../../database/models/Movie';
-import { IUserMovies } from '../../entities/IUser';
-
 
 export default class SequelizeUsersRepository implements IUsersRepository {
   private _model = UserModel;
@@ -29,7 +27,7 @@ export default class SequelizeUsersRepository implements IUsersRepository {
     await MovieUserModel.destroy({
       where: { userId: id },
     });
-    const deleteId = await this._model.destroy({
+    await this._model.destroy({
       where: { id },
     });
 
@@ -42,8 +40,13 @@ export default class SequelizeUsersRepository implements IUsersRepository {
         { model: MovieModel, as: 'movies', through: { attributes: [] },
         attributes: ['id', 'name', 'image'],},
       ],
-      attributes: {exclude:['password']}
+      attributes: { exclude:['password'] }
     });
     return movies;
+  };
+  public deleteByMovieAndUserId = async (userId:number, movieId: number) => {
+    await MovieUserModel.destroy({
+      where: { userId, movieId },
+    });
   };
 }

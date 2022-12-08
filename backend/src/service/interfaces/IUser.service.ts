@@ -1,3 +1,4 @@
+import { ISimpleMovie } from '../../entities/IMovie';
 import { IUser, IUserLoginDTO, IUserMovies } from '../../entities/IUser';
 
 export default interface IUserService {
@@ -7,4 +8,5 @@ export default interface IUserService {
   deleteById(id: string, token:string | undefined): Promise<void>;
   deleteUserLogged(token:string | undefined): Promise<void>
   findMoviesInRentalByUserId(id: number, token:string | undefined): Promise<IUserMovies>;
+  deleteByMovieAndUserId(userId:number, token:string | undefined): Promise<void>;
 }

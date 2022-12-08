@@ -52,8 +52,16 @@ export default class UserController {
   public findMoviesInRentalByUserId = async (req: Request, res: Response) => {
     const {params: { id }, headers: { authorization }} = req;
 
-    const movies = await this._userService.findMoviesInRentalByUserId(Number(id), authorization);
+    const userMovies = await this._userService.findMoviesInRentalByUserId(Number(id), authorization);
 
-    return res.status(StatusCodes.OK).json(movies);
+    return res.status(StatusCodes.OK).json(userMovies.movies);
+  };
+
+  public deleteByMovieAndUserId = async (req: Request, res: Response) => {
+    const {params: { id }, headers: { authorization }} = req;
+
+    await this._userService.deleteByMovieAndUserId(Number(id), authorization);
+
+    return res.sendStatus(StatusCodes.NO_CONTENT);
   };
 }
