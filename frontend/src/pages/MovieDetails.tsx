@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import { IMoviesDetails } from "../@types/movie";
+import Footer from "../components/Footer";
 
 
 
@@ -22,16 +23,24 @@ function MovieDetails() {
   ) : (
     <div>
       <Header />
-      <main className="flex items-center px-10 py-20 gap-10">
-        <section>
-          <h1>{data?.name}</h1>
+      <main className="flex items-center px-10 py-20 gap-5">
+        <section
+          className="flex flex-col justify-between gap-10"
+          >
+          <h1 
+            className="text-4xl text-center"
+            >{data?.name}</h1>
           <p>{data?.description}</p>
           <p>Ano de lançamento: {data?.releaseYear}</p>
           <p>Diretor: {data?.director.name}</p>
           <p>Gênero: {data?.category.name}</p>
         </section>
-        <img src={data?.image} alt={`poster movie-${data?.name}`} />
+        <img
+          src={data?.image}
+          alt={`poster movie-${data?.name}`}
+          className="max-w-md object-cover"/>
       </main>
+      <Footer/>
     </div>
   );
 }
