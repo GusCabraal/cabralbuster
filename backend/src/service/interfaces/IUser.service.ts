@@ -7,6 +7,7 @@ export default interface IUserService {
   findByEmail(email: string): Promise<IUser | null>;
   deleteById(id: string, token:string | undefined): Promise<void>;
   deleteUserLogged(token:string | undefined): Promise<void>
+  createMoviesUsers(id:number, token:string | undefined): Promise<void>;
   findMoviesInRentalByUserId(id: number, token:string | undefined): Promise<IUserMovies>;
   deleteByMovieAndUserId(userId:number, token:string | undefined): Promise<void>;
 }

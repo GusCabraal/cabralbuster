@@ -11,6 +11,7 @@ const controller = new Controller(service);
 router.get('/', controller.findAll);
 router.get('/:email', controller.findByEmail);
 router.get('/:id/movies', controller.findMoviesInRentalByUserId);
+router.post('/movies/:id', controller.createMoviesUsers);
 router.delete('/me', controller.deleteUserLogged);
 router.delete('/movies/:id', controller.deleteByMovieAndUserId);
 router.delete('/:id', controller.deleteById);

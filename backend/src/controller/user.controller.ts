@@ -57,6 +57,14 @@ export default class UserController {
     return res.status(StatusCodes.OK).json(userMovies.movies);
   };
 
+  public createMoviesUsers = async (req: Request, res: Response) => {
+    const {params: { id }, headers: { authorization }} = req;
+
+    await this._userService.createMoviesUsers(Number(id), authorization);
+
+    return res.sendStatus(StatusCodes.CREATED);
+  };
+
   public deleteByMovieAndUserId = async (req: Request, res: Response) => {
     const {params: { id }, headers: { authorization }} = req;
 

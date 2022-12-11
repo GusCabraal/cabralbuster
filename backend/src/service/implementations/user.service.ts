@@ -73,6 +73,13 @@ export default class UserService {
     
     return userMovies;
   };
+
+  public createMoviesUsers = async (movieId: number, token:string | undefined) => {
+
+    const { id: userId } = await authenticate(token);
+
+    await this._usersRepository.createMoviesUsers(movieId, userId);
+  };
   
   public deleteByMovieAndUserId = async (movieId: number, token:string | undefined) => {
 
