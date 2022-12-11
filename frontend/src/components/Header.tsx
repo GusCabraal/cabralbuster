@@ -13,7 +13,7 @@ function Header() {
         >CabralBuster</h1>
       </div>
       <div className="flex items-center gap-x-5">
-        <img src={user.image} alt="profileIcon" className="w-20 rounded object-cover" />
+        <img src={user.image} alt="profileIcon" className="w-20 h-20 rounded object-cover" />
         <button
           onClick={() => navigate('/users/movies')}
           className="w-full p-2 rounded text-white font-bold bg-green-700 hover:bg-green-900"

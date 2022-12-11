@@ -2,7 +2,8 @@ import httpRequest from "../axios/config";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
-import { IMoviesByUsers, ISimpleMovies } from "../@types/movie";
+import { ISimpleMovies } from "../@types/movie";
+import Footer from "../components/Footer";
 
 function MoviesByUser() {
   const { data, refetch } = useQuery<ISimpleMovies[]>("moviesByUsers", async () => {
@@ -11,14 +12,10 @@ function MoviesByUser() {
       .get(`/users/${id}/movies`)
       .then((response) => response.data);
   });
-  // const mutation = useMutation<IMoviesByUsers>("deleteMoviesAndUsersById", async (movieId) => {
-  //   return httpRequest.delete(`/users/movies/${movieId}`);
-  // });
 
   const mutation = useMutation({
-    mutationFn: (movieId) => {
+    mutationFn: (movieId: number) => {
       return httpRequest.delete(`/users/movies/${movieId}`)
-      .then((response) => response.data);
     },
     onSuccess:() => {
       refetch();
@@ -34,7 +31,7 @@ function MoviesByUser() {
             key={name}
             className="flex flex-col items-center p-5 rounded-xl shadow-xl max-w-xs"
           >
-            <Link to={`/movies/${id}`}>
+            <Link to={`/movies/${id}`} className="flex flex-col items-center">
               <img
                 src={image}
                 alt={`poster movie-${name}`}
@@ -51,6 +48,7 @@ function MoviesByUser() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }
