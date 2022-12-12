@@ -5,10 +5,14 @@ import { useNavigate } from 'react-router-dom';
 function Footer() {
 
   return (
-    <div className="flex justify-center w-screen items-center px-10 py-5 bg-gray-200">
+    <div className="flex justify-center w-screen items-center px-10 py-10 mt-10 bg-sky-900">
       <div className="flex items-center gap-x-20">
-        <img src={github} alt="github_icon" className="w-10 rounded object-cover" />
-        <img src={linkedin} alt="linkedin_icon" className="w-10" />
+        <a href="https://github.com/GusCabraal" target="_blank">
+          <img src={github} alt="github_icon" className="w-10 rounded object-cover" />
+        </a>
+        <a href="https://www.linkedin.com/in/guscabraal/" target="_blank">
+          <img src={linkedin} alt="linkedin_icon" className="w-10" />
+        </a>
       </div>
     </div>
   );

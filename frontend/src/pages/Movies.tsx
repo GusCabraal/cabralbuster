@@ -10,17 +10,7 @@ const classRent =
   "mt-5 bg-green-700 w-full p-2 rounded text-white font-bold hover:bg-gren-900";
 
 function Movies() {
-  const { data } = useQuery<ISimpleMovies[]>(
-    "movies",
-    async () => {
-      return httpRequest.get("/movies").then((response) => response.data);
-    },
-    {
-      staleTime: 1000 * 60, // 1 minuto
-    }
-  );
-
-  const { data: movieUser, refetch } = useQuery<ISimpleMovies[]>(
+  const { data: movieUser, refetch, isLoading } = useQuery<ISimpleMovies[]>(
     "moviesByUsers",
     async () => {
       const { id } = JSON.parse(localStorage.getItem("user") as string);
@@ -29,9 +19,18 @@ function Movies() {
         .then((response) => response.data);
     },
     {
-      staleTime: 1000 * 60, // 1 minuto
     }
   );
+  const { data } = useQuery<ISimpleMovies[]>(
+    "movies",
+    async () => {
+      return httpRequest.get("/movies").then((response) => response.data);
+    },
+    {
+      // staleTime: 1000 * 60, // 1 minuto
+    }
+  );
+
 
   function isMovieInRental(idMovie: number) {
     return movieUser?.some((movie) => movie.id === idMovie);
@@ -50,23 +49,23 @@ function Movies() {
   return (
     <div className="w-screen mx-auto">
       <Header />
-      <div className="grid gap-10 grid-cols-3 grid-rows-3">
+      <div className="grid gap-10 grid-cols-3 grid-rows-3 py-10 px-20">
         {data?.map(({ name, image, id }) => (
           <div
-            className="p-5 rounded-xl shadow-xl"
-            key={name}
+          key={name}
+            className="p-5 rounded-xl shadow-2xl"
           >
             <Link
               to={`/movies/${id}`}
-              className="flex flex-col items-center gap-3">
+              className="flex flex-col justify-between items-center">
               <img
                 src={image}
                 alt={`poster movie-${name}`}
                 className="max-w-xs max-h-60 object-cover"
               />
-              <p className="text-center h-10">{name}</p>
+              <p className="text-center text-lg h-20 pt-8">{name}</p>
             </Link>
-            <button
+            {!isLoading && <button
               className={isMovieInRental(id) ? classGiveBack : classRent}
               onClick={() => toggleMovieInRental(id) }
               >
@@ -75,7 +74,7 @@ function Movies() {
               ) : (
                 <p>Alugar filme</p>
               )}
-            </button>
+            </button>}
           </div>
         ))}
       </div>

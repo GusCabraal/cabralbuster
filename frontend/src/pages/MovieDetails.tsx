@@ -5,8 +5,6 @@ import Header from "../components/Header";
 import { IMoviesDetails } from "../@types/movie";
 import Footer from "../components/Footer";
 
-
-
 function MovieDetails() {
   const { idMovie } = useParams();
   const { data, isFetching } = useQuery<IMoviesDetails | null>(
@@ -23,24 +21,23 @@ function MovieDetails() {
   ) : (
     <div>
       <Header />
-      <main className="flex items-center px-10 py-20 gap-5">
-        <section
-          className="flex flex-col justify-between gap-10"
-          >
-          <h1 
-            className="text-4xl text-center"
-            >{data?.name}</h1>
+      <main className="w-screen mx-auto flex items-center p-20 gap-12">
+        <section className="flex flex-col justify-between gap-16">
+          <h1 className="text-5xl text-center">{data?.name}</h1>
           <p>{data?.description}</p>
-          <p>Ano de lançamento: {data?.releaseYear}</p>
-          <p>Diretor: {data?.director.name}</p>
-          <p>Gênero: {data?.category.name}</p>
+          <div>
+            <p>Ano de lançamento: {data?.releaseYear}</p>
+            <p>Diretor: {data?.director.name}</p>
+            <p>Gênero: {data?.category.name}</p>
+          </div>
         </section>
         <img
           src={data?.image}
           alt={`poster movie-${data?.name}`}
-          className="max-w-md object-cover"/>
+          className="w-80 object-cover"
+        />
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -5,6 +5,9 @@ import Header from "../components/Header";
 import { ISimpleMovies } from "../@types/movie";
 import Footer from "../components/Footer";
 
+const classGiveBack =
+  "mt-5 bg-red-700 w-full p-2 rounded text-white font-bold hover:bg-red-900";
+
 function MoviesByUser() {
   const { data, refetch } = useQuery<ISimpleMovies[]>("moviesByUsers", async () => {
     const { id } = JSON.parse(localStorage.getItem("user") as string);
@@ -25,22 +28,24 @@ function MoviesByUser() {
   return (
     <div className="w-screen mx-auto">
       <Header />
-      <div className="grid gap-10 grid-cols-3 grid-rows-3">
+      <div className="grid gap-10 grid-cols-3 grid-rows-3 py-10 px-20">
         {data?.map(({ name, image, id }) => (
           <div
             key={name}
-            className="flex flex-col items-center p-5 rounded-xl shadow-xl max-w-xs"
+            className="p-5 rounded-xl shadow-2xl"
           >
-            <Link to={`/movies/${id}`} className="flex flex-col items-center">
+            <Link
+              to={`/movies/${id}`}
+              className="flex flex-col justify-between items-center">
               <img
                 src={image}
                 alt={`poster movie-${name}`}
                 className="max-w-xs max-h-60 object-cover"
               />
-              <p className="text-center">{name}</p>
+              <p className="text-center text-lg h-20 pt-8">{name}</p>
             </Link>
             <button
-              className="mt-5 bg-red-700 w-full p-2 rounded text-white font-bold hover:bg-red-900 disabled:bg-gray-500 "
+              className={classGiveBack}
               onClick={() => mutation.mutate(id)}
             >
               Devolver filme

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import httpRequest from "../axios/config";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -11,6 +11,10 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify({ token: ''}))
+  }, []);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -36,9 +40,9 @@ function Login() {
   return (
     <div className="flex min-h-screen">
       <img src={locadora} alt="locadora" className="w-2/5 object-cover" />
-      <main className="bg-gray-200 w-full flex items-center justify-center">
+      <main className="bg-sky-900 w-full flex items-center justify-center">
         <div className="bg-white max-w-lg p-10 rounded-xl shadow-xl ">
-          <h1 className="text-4xl text-center mb-10">Login</h1>
+          <h1 className="text-4xl text-center font-bold mb-10">Login</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="email" className="text-sm">
               Email
