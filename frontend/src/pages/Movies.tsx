@@ -27,7 +27,7 @@ function Movies() {
       return httpRequest.get("/movies").then((response) => response.data);
     },
     {
-      // staleTime: 1000 * 60, // 1 minuto
+      staleTime: 1000 * 60, // 1 minuto
     }
   );
 
@@ -65,7 +65,7 @@ function Movies() {
               />
               <p className="text-center text-lg h-20 pt-8">{name}</p>
             </Link>
-            {!isLoading && <button
+            <button
               className={isMovieInRental(id) ? classGiveBack : classRent}
               onClick={() => toggleMovieInRental(id) }
               >
@@ -74,7 +74,7 @@ function Movies() {
               ) : (
                 <p>Alugar filme</p>
               )}
-            </button>}
+            </button>
           </div>
         ))}
       </div>
