@@ -19,6 +19,14 @@ export default {
         id: 4,
         name: 'Suspense',
       },
+      {
+        id: 5,
+        name: 'Terror',
+      },
+      {
+        id: 6,
+        name: 'Comédia',
+      },
     ]);
   },
 

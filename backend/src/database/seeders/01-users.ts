@@ -13,19 +13,19 @@ export default {
       },
       {
         id: 2,
+        username: 'Rocky Balboa',
+        email: 'rocky_balboa@email.com',
+        password: 'lutador',
+        admin: false,
+        image: 'http://localhost:3001/images/rocky_profile.jpg',
+      },
+      {
+        id: 3,
         username: 'Django',
         email: 'django@livre.com',
         password: 'Broomhilda',
         admin: false,
         image: 'http://localhost:3001/images/django_perfil.jpg',
-      },
-      {
-        id: 3,
-        username: 'T-800',
-        email: 't800@skynet.com',
-        password: 'sarahConnor',
-        admin: false,
-        image: 'http://localhost:3001/images/rocky_profile.jpg',
       },
     ]);
   },

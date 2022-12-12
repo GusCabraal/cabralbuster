@@ -23,6 +23,18 @@ export default {
         id: 5,
         name: 'Fernando Meirelles',
       },
+      {
+        id: 6,
+        name: 'Stanley Kubrick',
+      },
+      {
+        id: 7,
+        name: 'Tony Scott',
+      },
+      {
+        id: 8,
+        name: 'John Hughes',
+      },
     ]);
   },
 
