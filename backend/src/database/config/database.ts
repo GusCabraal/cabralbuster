@@ -2,13 +2,12 @@ import 'dotenv/config';
 import { Options } from 'sequelize';
 
 const config: Options = {
-  username: process.env.PGUSER || 'root',
-  password: process.env.PGPASSWORD || 'password',
-  database: process.env.PGDATABASE || 'cabralbuster',
-  host: process.env.PGHOST || 'localhost',
-  port: Number(process.env.PGPORT) || 3306,
-  dialect: 'postgres',
-	logging: true,
+  username: process.env.MYSQLUSER || 'root',
+  password: process.env.MYSQLPASSWORD || 'password',
+  database: process.env.MYSQLDATABASE || 'cabralbuster',
+  host: process.env.MYSQLHOST || 'localhost',
+  port: Number(process.env.MYSQLPORT) || 3306,
+  dialect: 'mysql'
 }
 
 export = config;
