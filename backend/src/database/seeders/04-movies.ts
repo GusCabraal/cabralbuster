@@ -11,7 +11,7 @@ export default {
                 imdb_rating: 8.9,
                 director_id: 1,
                 category_id: 1,
-                image: 'http://localhost:3001/images/Pulp_Fiction_cover.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/Pulp_Fiction_cover.jpg',
             },
             {
                 name: 'E.T. O Extraterrestre',
@@ -21,7 +21,7 @@ export default {
                 imdb_rating: 7.9,
                 director_id: 3,
                 category_id: 3,
-                image: 'http://localhost:3001/images/ET_O_Extraterrestre.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/ET_O_Extraterrestre.jpg',
             },
             {
                 name: 'Curtindo a Vida Adoidado',
@@ -31,7 +31,7 @@ export default {
                 imdb_rating: 7.8,
                 director_id: 8,
                 category_id: 6,
-                image: 'http://localhost:3001/images/curtindo.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/curtindo.jpg',
             },
             {
                 name: 'Tubarão',
@@ -41,7 +41,7 @@ export default {
                 imdb_rating: 8.1,
                 director_id: 3,
                 category_id: 4,
-                image: 'http://localhost:3001/images/tubarao.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/tubarao.jpg',
             },
             {
                 name: 'Clube dos Cinco',
@@ -51,7 +51,7 @@ export default {
                 imdb_rating: 7.8,
                 director_id: 8,
                 category_id: 6,
-                image: 'http://localhost:3001/images/clube_dos_cinco.jpeg',
+                image: 'https://cabralbuster-production.up.railway.app/images/clube_dos_cinco.jpeg',
             },
             {
                 name: 'O Exterminador do Futuro 2 - O Julgamento Final',
@@ -61,7 +61,7 @@ export default {
                 imdb_rating: 8.6,
                 director_id: 4,
                 category_id: 3,
-                image: 'http://localhost:3001/images/terminator_2.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/terminator_2.jpg',
             },
             {
                 name: 'Taxi Driver – Motorista de Táxi',
@@ -71,7 +71,7 @@ export default {
                 imdb_rating: 8.2,
                 director_id: 2,
                 category_id: 2,
-                image: 'http://localhost:3001/images/Taxi_Driver.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/Taxi_Driver.jpg',
             },
             {
                 name: 'Cidade de Deus',
@@ -81,7 +81,7 @@ export default {
                 imdb_rating: 8.6,
                 director_id: 5,
                 category_id: 2,
-                image: 'http://localhost:3001/images/CidadedeDeus.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/CidadedeDeus.jpg',
             },
             {
                 name: 'O Iluminado',
@@ -91,7 +91,7 @@ export default {
                 imdb_rating: 8.4,
                 director_id: 6,
                 category_id: 5,
-                image: 'http://localhost:3001/images/O_iluminado.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/O_iluminado.jpg',
             },
             {
                 name: '2001 - Uma Odisseia no Espaço',
@@ -101,7 +101,7 @@ export default {
                 imdb_rating: 8.3,
                 director_id: 6,
                 category_id: 3,
-                image: 'http://localhost:3001/images/quadro-poster-c-moldura-2001-uma-odisseia-no-espaco-kubrick-quadros.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/quadro-poster-c-moldura-2001-uma-odisseia-no-espaco-kubrick-quadros.jpg',
             },
             {
                 name: 'Laranja Mecânica',
@@ -111,7 +111,7 @@ export default {
                 imdb_rating: 8.3,
                 director_id: 6,
                 category_id: 2,
-                image: 'http://localhost:3001/images/laranja_mecanica.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/laranja_mecanica.jpg',
             },
             {
                 name: 'Touro Indomável',
@@ -121,7 +121,7 @@ export default {
                 imdb_rating: 8.2,
                 director_id: 2,
                 category_id: 2,
-                image: 'http://localhost:3001/images/touro_indomavel.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/touro_indomavel.jpg',
             },
             {
                 name: 'Cães de Aluguel',
@@ -131,7 +131,7 @@ export default {
                 imdb_rating: 8.3,
                 director_id: 1,
                 category_id: 1,
-                image: 'http://localhost:3001/images/caes_de_aluguel.jpg',
+                image: 'https://cabralbuster-production.up.railway.app/images/caes_de_aluguel.jpg',
             },
             {
                 name: 'Top Gun - Ases Indomáveis',
@@ -141,7 +141,7 @@ export default {
                 imdb_rating: 6.9,
                 director_id: 7,
                 category_id: 1,
-                image: 'http://localhost:3001/images/top_gun.jpeg',
+                image: 'https://cabralbuster-production.up.railway.app/images/top_gun.jpeg',
             },
         ])
     },
