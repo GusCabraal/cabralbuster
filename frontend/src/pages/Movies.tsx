@@ -22,11 +22,11 @@ function Movies() {
   );
 
 
-  function toggleMovieInRental(isMovieInRental:boolean, idMovie:number) {
+  async function toggleMovieInRental(isMovieInRental:boolean, idMovie:number) {
     if(isMovieInRental){
-      httpRequest.delete(`/users/movies/${idMovie}`)
+      await httpRequest.delete(`/users/movies/${idMovie}`)
     } else {
-      httpRequest.post(`/users/movies/${idMovie}`)
+      await httpRequest.post(`/users/movies/${idMovie}`)
     }
     refetch()
   }

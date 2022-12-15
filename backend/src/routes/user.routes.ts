@@ -9,7 +9,6 @@ const service = new Service(repository);
 const controller = new Controller(service);
 
 router.get('/', controller.findAll);
-router.get('/:email', controller.findByEmail);
 router.get('/:id/movies', controller.findMoviesInRentalByUserId);
 router.post('/movies/:id', controller.createMoviesUsers);
 router.delete('/me', controller.deleteUserLogged);

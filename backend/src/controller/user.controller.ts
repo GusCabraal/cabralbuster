@@ -11,9 +11,7 @@ export default class UserController {
   }
 
   public login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-
-    const user = await this._userService.login(email, password);
+    const user = await this._userService.login(req.body);
     return res.status(StatusCodes.OK).json(user);
   };
 
@@ -24,14 +22,6 @@ export default class UserController {
     
     return res.status(StatusCodes.OK).json(users);
   };
-
-  public findByEmail = async (req: Request, res: Response) => {
-    const { email } = req.params;
-
-    const user = await this._userService.findByEmail(email);
-    return res.status(StatusCodes.OK).json(user);
-  };
-
 
   public deleteById = async (req: Request, res: Response) => {
     const {params: { id }, headers: { authorization }} = req;

@@ -1,7 +1,9 @@
+import { ILogin } from '../../entities/IUser';
 import IUsersRepository from '../../repositories/interfaces/IUser.repository';
 import NotFoundError from '../../utils/errors/NotFoundError';
 import UnauthorizedError from '../../utils/errors/UnauthorizedError';
 import authenticate from '../../utils/helpers/authenticate';
+import { hashGenerator } from '../../utils/helpers/hashGenerator';
 import TokenManager from '../../utils/helpers/tokenManager';
 
 export default class UserService {
@@ -11,14 +13,15 @@ export default class UserService {
     this._usersRepository = usersRepository;
   }
 
-  public login = async (email: string, loginPassword: string) => {
-    const user = await this._usersRepository.findByEmail(email);
+  public login = async (userInfo:ILogin) => {
 
-    if(!user) throw new NotFoundError('User not found');
+    const hashedUser = hashGenerator(userInfo);
 
-    if(user.password !== loginPassword) throw new UnauthorizedError('Invalid email or password')
+    const foundUser = await this._usersRepository.findByEmailAndPassword(hashedUser);
 
-    const {password, ...userWithoutPassword  } = user;
+    if(!foundUser) throw new UnauthorizedError('Invalid email or password');
+
+    const {password, ...userWithoutPassword  } = foundUser;
     
     const token = TokenManager.makeToken(userWithoutPassword);
     
@@ -36,13 +39,6 @@ export default class UserService {
     return users;
   };
 
-  public findByEmail = async (email: string) => {
-    const user = await this._usersRepository.findByEmail(email);
-
-    if(!user) throw new NotFoundError('User not found');
-    
-    return user;
-  };
   public deleteById = async (id: string, token: string | undefined) => {
 
     const { admin } = await authenticate(token);
