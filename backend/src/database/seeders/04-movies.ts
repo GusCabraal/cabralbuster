@@ -16,6 +16,16 @@ export default {
                 image: `${process.env.DOMAIN}/images/Pulp_Fiction_cover.jpg`,
             },
             {
+                name: 'Rocky: Um Lutador',
+                description:
+                    'Rocky Balboa, um pequeno boxeador da classe trabalhadora da Filadélfia, é arbitrariamente escolhido para lutar contra o campeão dos pesos pesados, Apollo Creed, quando o adversário do invicto lutador agendado para a luta é ferido. Durante o treinamento com o mal-humorado Mickey Goldmill, Rocky timidamente começa um relacionamento com Adrian, a invisível irmã de Paulie, seu amigo empacotador de carne.',
+                release_year: 1976,
+                imdb_rating: 8.1,
+                director_id: 9,
+                category_id: 2,
+                image: `${process.env.DOMAIN}/images/rocky.jpeg`,
+            },
+            {
                 name: 'E.T. O Extraterrestre',
                 description:
                     'O garoto Elliott faz amizade com um pequeno alienígena inofensivo que está bem longe do seu planeta. Ele decide manter a adorável criatura em segredo e em casa após apresentá-la aos irmãos.',

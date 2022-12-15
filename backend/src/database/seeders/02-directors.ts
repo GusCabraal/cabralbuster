@@ -35,6 +35,10 @@ export default {
         id: 8,
         name: 'John Hughes',
       },
+      {
+        id: 9,
+        name: 'John G. Avildsen',
+      },
     ]);
   },
 

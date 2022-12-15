@@ -16,9 +16,7 @@ function MovieDetails() {
     }
   );
 
-  return isFetching ? (
-    <p>Carregando...</p>
-  ) : (
+  return (
     <div>
       <Header />
       <main className="w-screen mx-auto flex items-center p-20 gap-12">
