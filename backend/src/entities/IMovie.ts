@@ -3,6 +3,10 @@ export interface ISimpleMovie {
     name: string
     image: string
 }
+
+export interface ISimpleMovieUser extends ISimpleMovie {
+    isMovieInRental: boolean;
+}
 export interface IMovie extends ISimpleMovie {
     description: string
     releaseYear: number

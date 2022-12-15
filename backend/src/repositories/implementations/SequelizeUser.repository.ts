@@ -40,8 +40,9 @@ export default class SequelizeUsersRepository implements IUsersRepository {
         { model: MovieModel, as: 'movies', through: { attributes: [] },
         attributes: ['id', 'name', 'image'],},
       ],
-      attributes: { exclude:['password'] }
-    });
+      attributes: { exclude:['password'] },
+  });
+  
     return movies;
   };
 

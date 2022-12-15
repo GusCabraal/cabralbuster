@@ -9,7 +9,8 @@ export default class SequelizeUsersRepository implements IMovieRepository {
 
   public findAll = async () => {
     const movies = await this._model.findAll({
-      attributes: ['id', 'name', 'image']
+      attributes: ['id', 'name', 'image'],
+      raw: true
     });
 
     return movies as ISimpleMovie[];

@@ -2,17 +2,17 @@ import httpRequest from "../axios/config";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
-import { ISimpleMovies } from "../@types/movie";
+import { ISimpleMoviesByUsers } from "../@types/movie";
 import Footer from "../components/Footer";
 
 const classGiveBack =
   "mt-5 bg-red-700 w-full p-2 rounded text-white font-bold hover:bg-red-900";
 
 function MoviesByUser() {
-  const { data, refetch } = useQuery<ISimpleMovies[]>("moviesByUsers", async () => {
+  const { data, refetch } = useQuery<ISimpleMoviesByUsers[]>("moviesByUsers", async () => {
     const { id } = JSON.parse(localStorage.getItem("user") as string);
     return httpRequest
-      .get(`/users/${id}/movies`)
+      .get(`/movies/users/${id}`)
       .then((response) => response.data);
   });
 
@@ -29,7 +29,8 @@ function MoviesByUser() {
     <div className="w-screen mx-auto">
       <Header />
       <div className="grid gap-10 grid-cols-3 grid-rows-3 py-10 px-20">
-        {data?.map(({ name, image, id }) => (
+        {data?.filter(({isMovieInRental}) => isMovieInRental) // mostra apenas os filmes que estão alugados no momento
+        .map(({ name, image, id }) => (
           <div
             key={name}
             className="p-5 rounded-xl shadow-2xl"

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { QueryInterface, DataTypes } from 'sequelize';
 
 export default {

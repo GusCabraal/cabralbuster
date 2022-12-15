@@ -19,10 +19,6 @@ export interface IMoviesDetails {
     image: string;
   }
   
-  interface IMoviesByUsers {
-    id: number;
-    username: string;
-    email: string;
-    admin: boolean;
-    movies: ISimpleMovies[];
+  interface ISimpleMoviesByUsers extends ISimpleMovies {
+    isMovieInRental: boolean;
   }

@@ -10,8 +10,10 @@ export default class MovieController {
     this._movieService = movieService;
   }
 
-  public findAll = async (_req: Request, res: Response) => {
-    const movies = await this._movieService.findAll();
+  public findAll = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    
+    const movies = await this._movieService.findAll(Number(id));
 
     return res.status(StatusCodes.OK).json(movies);
   };
