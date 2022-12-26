@@ -12,6 +12,9 @@ function MoviesByUser() {
     return httpRequest
       .get(`/movies/users/${id}`)
       .then((response) => response.data);
+  },
+  {
+    staleTime: 1000 * 60,
   });
 
   return (

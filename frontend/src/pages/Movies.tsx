@@ -18,19 +18,7 @@ function Movies() {
       staleTime: 1000 * 60, // 1 minuto
     }
   );
-
-  async function toggleMovieInRental(
-    isMovieInRental: boolean,
-    idMovie: number
-  ) {
-    if (isMovieInRental) {
-      await httpRequest.delete(`/users/movies/${idMovie}`);
-    } else {
-      await httpRequest.post(`/users/movies/${idMovie}`);
-    }
-    refetch();
-  }
-
+  
   return (
     <div className="w-screen mx-auto bg-cyan-900">
       <Header />
