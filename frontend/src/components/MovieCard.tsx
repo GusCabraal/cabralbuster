@@ -1,7 +1,8 @@
 import { QueryObserverResult } from "react-query";
 import { Link } from "react-router-dom";
 import { ISimpleMoviesByUsers } from "../@types/movie";
-import httpRequest from "../axios/config";
+import {api} from "../axios/config";
+import { useMovies } from "../context/movieContext";
 const classGiveBack =
   "mt-5 bg-red-700 w-full p-2 rounded text-white font-bold hover:bg-red-900";
 const classRent =
@@ -12,7 +13,6 @@ interface MovieCardProps {
   image: string;
   name: string;
   isMovieInRental: boolean;
-  onRefetch: () => Promise<QueryObserverResult<ISimpleMoviesByUsers[]>>;
 }
 
 export function MovieCard({
@@ -20,20 +20,8 @@ export function MovieCard({
   name,
   image,
   isMovieInRental,
-  onRefetch,
 }: MovieCardProps) {
-
-  async function toggleMovieInRental(
-    isMovieInRental: boolean,
-    idMovie: number
-  ) {
-    if (isMovieInRental) {
-      await httpRequest.delete(`/users/movies/${idMovie}`);
-    } else {
-      await httpRequest.post(`/users/movies/${idMovie}`);
-    }
-    onRefetch();
-  }
+  const { toggleMovieInRental } = useMovies();
   return (
     <div key={name} className="p-5 rounded-xl shadow-2xl bg-slate-300">
       <Link

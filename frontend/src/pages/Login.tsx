@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import httpRequest from "../axios/config";
+import {api} from "../axios/config";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import axios, { AxiosError } from "axios";
@@ -23,7 +23,7 @@ function Login() {
 
   const mutation = useMutation({
     mutationFn: () => {
-      return httpRequest
+      return api
         .post("/login", { email, password })
         .then((response) => response.data);
     },

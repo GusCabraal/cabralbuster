@@ -7,7 +7,7 @@ if(!user){
   localStorage.setItem("user", JSON.stringify({ token: ''}))
 }
 
-const httpRequest = axios.create({
+export const api = axios.create({
   baseURL: isDevelopment? 'http://localhost:3001/': 'https://cabralbuster-production.up.railway.app/',
   headers: {
     common: {
@@ -15,5 +15,3 @@ const httpRequest = axios.create({
     },
   },
 });
-
-export default httpRequest;

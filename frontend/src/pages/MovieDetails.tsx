@@ -1,4 +1,4 @@
-import httpRequest from "../axios/config";
+import {api} from "../axios/config";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
@@ -10,7 +10,7 @@ function MovieDetails() {
   const { data, isFetching } = useQuery<IMoviesDetails | null>(
     `movies-${idMovie}`,
     async () => {
-      return httpRequest
+      return api
         .get(`/movies/${idMovie}`)
         .then((response) => response.data);
     }
