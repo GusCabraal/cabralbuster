@@ -1,17 +1,6 @@
 import axios from 'axios';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-const user = localStorage.getItem('user')
-
-if(!user){
-  localStorage.setItem("user", JSON.stringify({ token: ''}))
-}
-
 export const api = axios.create({
-  baseURL: isDevelopment? 'http://localhost:3001/': 'https://cabralbuster-production.up.railway.app/',
-  headers: {
-    common: {
-      Authorization: JSON.parse(localStorage.getItem("user") as string).token,
-    },
-  },
+  baseURL: isDevelopment ? 'http://localhost:3001/': 'https://cabralbuster-production.up.railway.app/',
 });

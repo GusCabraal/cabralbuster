@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { QueryObserverResult, RefetchOptions, RefetchQueryFilters, useMutation, UseMutationResult, useQuery } from "react-query";
 import { ISimpleMoviesByUsers } from "../@types/movie";
@@ -32,12 +32,17 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   const { data: movies, refetch } = useQuery<ISimpleMoviesByUsers[]>(
     "movies",
     async () => {
+      const config : AxiosRequestConfig = {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("token") as string)
+        }
+      }
         return api
           .get(
             `/movies/users/${
               JSON.parse(localStorage.getItem("user") as string)?.id
             }`
-          )
+          , config)
           .then((response) => response.data);
     },
     {
@@ -53,13 +58,19 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   //   }
   //   refetch();
   // }
-
+  
+    
   const mutation = useMutation({
     mutationFn: ({ isMovieInRental, idMovie }: ToggleMovieInRental) => {
+      const config : AxiosRequestConfig = {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("token") as string)
+        }
+      }
       if (isMovieInRental) {
-        return api.delete(`/users/movies/${idMovie}`);
+        return api.delete(`/users/movies/${idMovie}`, config);
       } else {
-        return api.post(`/users/movies/${idMovie}`);
+        return api.post(`/users/movies/${idMovie}`, {}, config);
       }
     },
     onSuccess: () => {
