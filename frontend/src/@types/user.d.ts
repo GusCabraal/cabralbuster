@@ -4,7 +4,5 @@ export interface IUser {
     email: string;
     image?: string;
     admin: boolean;
+    token: string;
   }  
-  export type ContextType = {
-    user: IUser | null;
-  };

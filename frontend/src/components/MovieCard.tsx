@@ -16,16 +16,16 @@ interface MovieCardProps {
 }
 
 export function MovieCard({
-  id,
+  id: idMovie,
   name,
   image,
   isMovieInRental,
 }: MovieCardProps) {
-  const { toggleMovieInRental } = useMovies();
+  const { mutation } = useMovies();
   return (
     <div key={name} className="p-5 rounded-xl shadow-2xl bg-slate-300">
       <Link
-        to={`/movies/${id}`}
+        to={`/movies/${idMovie}`}
         className="flex flex-col justify-between items-center"
       >
         <img
@@ -37,7 +37,7 @@ export function MovieCard({
       </Link>
       <button
         className={isMovieInRental ? classGiveBack : classRent}
-        onClick={() => toggleMovieInRental(isMovieInRental, id)}
+        onClick={() => mutation.mutate({isMovieInRental, idMovie })}
       >
         {isMovieInRental ? <p> Devolver filme</p> : <p>Alugar filme</p>}
       </button>
