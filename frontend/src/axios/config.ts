@@ -11,7 +11,7 @@ export const api = axios.create({
   baseURL: isDevelopment? 'http://localhost:3001/': 'https://cabralbuster-production.up.railway.app/',
   headers: {
     common: {
-      Authorization: JSON.parse(localStorage.getItem("user") as string).token || '',
+      Authorization: JSON.parse(localStorage.getItem("user") as string).token,
     },
   },
 });

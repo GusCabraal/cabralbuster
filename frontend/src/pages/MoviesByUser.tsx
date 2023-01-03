@@ -2,10 +2,15 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { MovieCard } from "../components/MovieCard";
 import { useMovies } from "../context/movieContext";
+import { useEffect } from "react";
 
 
 function MoviesByUser() {
-  const {movies } = useMovies();
+  const { movies, refetch } = useMovies();
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <div className="w-screen mx-auto bg-cyan-900">
