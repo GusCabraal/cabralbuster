@@ -1,6 +1,13 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { QueryObserverResult, RefetchOptions, RefetchQueryFilters, useMutation, UseMutationResult, useQuery } from "react-query";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation,
+  UseMutationResult,
+  useQuery,
+} from "react-query";
 import { ISimpleMoviesByUsers } from "../@types/movie";
 import { api } from "../axios/config";
 
@@ -22,7 +29,9 @@ interface MoviesContextData {
     ToggleMovieInRental,
     unknown
   >;
-  refetch: (options?: (RefetchOptions & RefetchQueryFilters<unknown>) | undefined) => Promise<QueryObserverResult<ISimpleMoviesByUsers[], unknown>>;
+  refetch: (
+    options?: (RefetchOptions & RefetchQueryFilters<unknown>) | undefined
+  ) => Promise<QueryObserverResult<ISimpleMoviesByUsers[], unknown>>;
 }
 
 const MoviesContext = createContext<MoviesContextData>({} as MoviesContextData);
@@ -32,17 +41,18 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   const { data: movies, refetch } = useQuery<ISimpleMoviesByUsers[]>(
     "movies",
     async () => {
-      const config : AxiosRequestConfig = {
+      const config: AxiosRequestConfig = {
         headers: {
-          Authorization: JSON.parse(localStorage.getItem("token") as string)
-        }
-      }
+          Authorization: JSON.parse(localStorage.getItem("token") as string),
+        },
+      };
         return api
           .get(
             `/movies/users/${
               JSON.parse(localStorage.getItem("user") as string)?.id
-            }`
-          , config)
+            }`,
+            config
+          )
           .then((response) => response.data);
     },
     {
@@ -58,15 +68,14 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   //   }
   //   refetch();
   // }
-  
-    
+
   const mutation = useMutation({
     mutationFn: ({ isMovieInRental, idMovie }: ToggleMovieInRental) => {
-      const config : AxiosRequestConfig = {
+      const config: AxiosRequestConfig = {
         headers: {
-          Authorization: JSON.parse(localStorage.getItem("token") as string)
-        }
-      }
+          Authorization: JSON.parse(localStorage.getItem("token") as string),
+        },
+      };
       if (isMovieInRental) {
         return api.delete(`/users/movies/${idMovie}`, config);
       } else {
@@ -79,7 +88,9 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   });
 
   return (
-    <MoviesContext.Provider value={{ movies, mutation, refetch }}>
+    <MoviesContext.Provider
+      value={{ movies, mutation, refetch }}
+    >
       {children}
     </MoviesContext.Provider>
   );
