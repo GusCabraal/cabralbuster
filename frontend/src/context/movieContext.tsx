@@ -1,10 +1,13 @@
-import { AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { createContext, ReactNode, useContext, useState } from "react";
 import {
-  createContext,
-  ReactNode,
-  useContext,
-} from "react";
-import {  useMutation, UseMutationResult, useQuery } from "react-query";
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation,
+  UseMutationResult,
+  useQuery,
+} from "react-query";
 import { ISimpleMoviesByUsers } from "../@types/movie";
 import { api } from "../axios/config";
 
@@ -13,33 +16,47 @@ interface MoviesProviderProps {
 }
 
 interface ToggleMovieInRental {
-  isMovieInRental: boolean,
+  isMovieInRental: boolean;
   idMovie: number;
-
 }
 
 interface MoviesContextData {
   movies: ISimpleMoviesByUsers[] | undefined;
   // toggleMovieInRental: (isMovieInRental: boolean, idMovie: number) => Promise<void>;
-  mutation: UseMutationResult<AxiosResponse<any, any>, unknown, ToggleMovieInRental, unknown>
+  mutation: UseMutationResult<
+    AxiosResponse<any, any>,
+    unknown,
+    ToggleMovieInRental,
+    unknown
+  >;
+  refetch: (
+    options?: (RefetchOptions & RefetchQueryFilters<unknown>) | undefined
+  ) => Promise<QueryObserverResult<ISimpleMoviesByUsers[], unknown>>;
 }
 
 const MoviesContext = createContext<MoviesContextData>({} as MoviesContextData);
 
 export function MoviesProvider({ children }: MoviesProviderProps) {
 
-  const {
-    data: movies,
-    refetch,
-  } = useQuery<ISimpleMoviesByUsers[]>(
+  const { data: movies, refetch } = useQuery<ISimpleMoviesByUsers[]>(
     "movies",
     async () => {
+      const config: AxiosRequestConfig = {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("token") as string),
+        },
+      };
         return api
-          .get(`/movies/users/${ JSON.parse(localStorage.getItem("user") as string)?.id}`)
+          .get(
+            `/movies/users/${
+              JSON.parse(localStorage.getItem("user") as string)?.id
+            }`,
+            config
+          )
           .then((response) => response.data);
     },
     {
-      staleTime: 1000 * 60, // 1 minuto
+      staleTime: 1000 * 60, // 1 minuto,
     }
   );
 
@@ -53,20 +70,27 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   // }
 
   const mutation = useMutation({
-    mutationFn: ({isMovieInRental, idMovie }: ToggleMovieInRental) => {
+    mutationFn: ({ isMovieInRental, idMovie }: ToggleMovieInRental) => {
+      const config: AxiosRequestConfig = {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("token") as string),
+        },
+      };
       if (isMovieInRental) {
-        return api.delete(`/users/movies/${idMovie}`);
+        return api.delete(`/users/movies/${idMovie}`, config);
       } else {
-        return api.post(`/users/movies/${idMovie}`);
+        return api.post(`/users/movies/${idMovie}`, {}, config);
       }
     },
     onSuccess: () => {
       refetch();
-    }
-  })
+    },
+  });
 
   return (
-    <MoviesContext.Provider value={{ movies, mutation }}>
+    <MoviesContext.Provider
+      value={{ movies, mutation, refetch }}
+    >
       {children}
     </MoviesContext.Provider>
   );

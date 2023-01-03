@@ -29,6 +29,7 @@ function Login() {
     },
     onSuccess: (data) => {
       localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("token", JSON.stringify(data.token));
       navigate("/movies");
     },
     onError: (err: Error | AxiosError) => {

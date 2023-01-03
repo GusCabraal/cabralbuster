@@ -6,7 +6,8 @@ function Header() {
   const navigate = useNavigate();
 
   function userLogout() {
-    localStorage.setItem("user", JSON.stringify({ token: ''}))
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
     navigate("/")
   }
   return (
