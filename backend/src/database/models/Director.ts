@@ -5,6 +5,7 @@ import database from '.';
 class Director extends Model {
   public id!: number;
   public name!: string;
+  public image!: string;
 }
 
 Director.init(
@@ -16,6 +17,10 @@ Director.init(
         type: DataTypes.INTEGER,
       },
       name: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      image: {
         allowNull: false,
         type: DataTypes.STRING,
       },
