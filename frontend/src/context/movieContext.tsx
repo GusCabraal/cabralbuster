@@ -23,6 +23,11 @@ interface ToggleMovieInRental {
 interface MoviesContextData {
   movies: ISimpleMoviesByUsers[] | undefined;
   // toggleMovieInRental: (isMovieInRental: boolean, idMovie: number) => Promise<void>;
+  isMovieModalOpen: boolean;
+  handleOpenMovieModal: () => void;
+  movieSelectedId: number;
+  setMovieSelectedId: React.Dispatch<React.SetStateAction<number>>;
+
   mutation: UseMutationResult<
     AxiosResponse<any, any>,
     unknown,
@@ -37,6 +42,16 @@ interface MoviesContextData {
 const MoviesContext = createContext<MoviesContextData>({} as MoviesContextData);
 
 export function MoviesProvider({ children }: MoviesProviderProps) {
+  const [isMovieModalOpen, setIsMovieModalOpen] = useState(false);
+  const [movieSelectedId, setMovieSelectedId] = useState(1);
+
+  function handleOpenMovieModal() {
+    setIsMovieModalOpen(true);
+  }
+
+  function handleCloseMovieModal() {
+    setIsMovieModalOpen(false);
+  }
 
   const { data: movies, refetch } = useQuery<ISimpleMoviesByUsers[]>(
     "movies",
@@ -46,14 +61,14 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
           Authorization: JSON.parse(localStorage.getItem("token") as string),
         },
       };
-        return api
-          .get(
-            `/movies/users/${
-              JSON.parse(localStorage.getItem("user") as string)?.id
-            }`,
-            config
-          )
-          .then((response) => response.data);
+      return api
+        .get(
+          `/movies/users/${
+            JSON.parse(localStorage.getItem("user") as string)?.id
+          }`,
+          config
+        )
+        .then((response) => response.data);
     },
     {
       staleTime: 1000 * 60, // 1 minuto,
@@ -89,7 +104,15 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
 
   return (
     <MoviesContext.Provider
-      value={{ movies, mutation, refetch }}
+      value={{
+        movies,
+        mutation,
+        refetch,
+        isMovieModalOpen,
+        handleOpenMovieModal,
+        movieSelectedId,
+        setMovieSelectedId,
+      }}
     >
       {children}
     </MoviesContext.Provider>
