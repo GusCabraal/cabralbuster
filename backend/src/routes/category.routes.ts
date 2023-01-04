@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { SequelizeCategoryRepository } from '../repositories/implementations/SequelizeCategoryrepository'
+import { SequelizeCategoryRepository } from '../repositories/implementations/SequelizeCategory.repository'
 import { CategoryService } from '../service/implementations/category.service'
 import { CategoryController } from '../controller/category.controller'
 

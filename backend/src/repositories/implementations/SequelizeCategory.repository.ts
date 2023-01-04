@@ -5,11 +5,7 @@ export class SequelizeCategoryRepository implements ICategoryRepository {
   private _model = CategoryModel;
 
   public findAll = async () => {
-    const categories = await this._model.findAll({
-      raw: true
-    });
-
-    return categories;
+    return this._model.findAll({raw: true});
   };
 
 }
