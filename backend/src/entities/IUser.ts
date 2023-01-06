@@ -28,6 +28,11 @@ export interface IUserMovies {
     admin: boolean
     movies: ISimpleMovie[]
 }
+
+export interface MovieUser {
+    movieId: number
+    userId: number
+}
 export interface IUserLoginDTO extends IUserDTO {
     token: string
 }

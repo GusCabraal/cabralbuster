@@ -49,7 +49,8 @@ export default class SequelizeUsersRepository implements IUsersRepository {
   };
 
   public createMoviesUsers = async (movieId:number, userId:number) => {
-    await MovieUserModel.create({movieId, userId});
+    return MovieUserModel.create({movieId, userId})
+    .then(response => response.movieId);
   };
 
   public deleteByMovieAndUserId = async (userId:number, movieId: number) => {

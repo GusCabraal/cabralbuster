@@ -1,14 +1,7 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { createContext, ReactNode, useContext, useState } from "react";
-import {
-  QueryObserverResult,
-  RefetchOptions,
-  RefetchQueryFilters,
-  useMutation,
-  UseMutationResult,
-  useQuery,
-} from "react-query";
-import { ISimpleMoviesByUsers } from "../@types/movie";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Movie } from "../@types/movie";
 import { api } from "../axios/config";
 
 interface MoviesProviderProps {
@@ -16,29 +9,51 @@ interface MoviesProviderProps {
 }
 
 interface ToggleMovieInRental {
-  isMovieInRental: boolean;
-  idMovie: number;
+  isMovieInRental: boolean | undefined;
+  movieSelectedId: number;
+}
+interface ToggleMovieInRentalFunction {
+  isMovieInRental: boolean | undefined;
+  movieSelectedId: number;
+  pathname: string;
 }
 
 interface MoviesContextData {
-  movies: ISimpleMoviesByUsers[] | undefined;
-  // toggleMovieInRental: (isMovieInRental: boolean, idMovie: number) => Promise<void>;
-  mutation: UseMutationResult<
-    AxiosResponse<any, any>,
-    unknown,
-    ToggleMovieInRental,
-    unknown
-  >;
-  refetch: (
-    options?: (RefetchOptions & RefetchQueryFilters<unknown>) | undefined
-  ) => Promise<QueryObserverResult<ISimpleMoviesByUsers[], unknown>>;
+  movies: Movie[] | undefined;
+  isMovieModalOpen: boolean;
+  handleCloseMovieModal: () => void;
+  handleOpenMovieModal: () => void;
+  movieSelectedId: number;
+  handleSelectedMovieId: (id: number) => void;
+  isFetchingMovies: boolean;
+  toggleMovieInRental: (data: ToggleMovieInRentalFunction) => void;
+  reloadMovieData: () => void;
 }
 
 const MoviesContext = createContext<MoviesContextData>({} as MoviesContextData);
 
 export function MoviesProvider({ children }: MoviesProviderProps) {
+  const [isMovieModalOpen, setIsMovieModalOpen] = useState(false);
+  const [movieSelectedId, setMovieSelectedId] = useState(1);
+  const queryClient = useQueryClient();
 
-  const { data: movies, refetch } = useQuery<ISimpleMoviesByUsers[]>(
+  function handleSelectedMovieId(id: number) {
+    setMovieSelectedId(id);
+  }
+
+  function handleOpenMovieModal() {
+    setIsMovieModalOpen(true);
+  }
+
+  function handleCloseMovieModal() {
+    setIsMovieModalOpen(false);
+  }
+
+  const {
+    data: movies,
+    refetch,
+    isFetching: isFetchingMovies,
+  } = useQuery<Movie[]>(
     "movies",
     async () => {
       const config: AxiosRequestConfig = {
@@ -46,50 +61,70 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
           Authorization: JSON.parse(localStorage.getItem("token") as string),
         },
       };
-        return api
-          .get(
-            `/movies/users/${
-              JSON.parse(localStorage.getItem("user") as string)?.id
-            }`,
-            config
-          )
-          .then((response) => response.data);
+      return api
+        .get(
+          `/movies/users/${
+            JSON.parse(localStorage.getItem("user") as string)?.id
+          }`,
+          config
+        )
+        .then((response) => response.data);
     },
     {
       staleTime: 1000 * 60, // 1 minuto,
     }
   );
 
-  // async function toggleMovieInRental( isMovieInRental: boolean, idMovie: number) {
-  //   if (isMovieInRental) {
-  //     await api.delete(`/users/movies/${idMovie}`);
-  //   } else {
-  //     await api.post(`/users/movies/${idMovie}`);
-  //   }
-  //   refetch();
-  // }
-
+  function reloadMovieData() {
+    refetch();
+  }
   const mutation = useMutation({
-    mutationFn: ({ isMovieInRental, idMovie }: ToggleMovieInRental) => {
+    mutationFn: ({ isMovieInRental, movieSelectedId }: ToggleMovieInRental) => {
       const config: AxiosRequestConfig = {
         headers: {
           Authorization: JSON.parse(localStorage.getItem("token") as string),
         },
       };
       if (isMovieInRental) {
-        return api.delete(`/users/movies/${idMovie}`, config);
+        return api.delete(`/users/movies/${movieSelectedId}`, config);
       } else {
-        return api.post(`/users/movies/${idMovie}`, {}, config);
+        return api.post(`/users/movies/${movieSelectedId}`, {}, config);
       }
     },
-    onSuccess: () => {
-      refetch();
+    onSuccess: ({ data: movieId }) => {
+      queryClient.setQueryData<Movie[] | undefined>("movies", (data) => {
+        return data?.map((movie: Movie) =>
+          movie.id === movieId
+            ? { ...movie, isMovieInRental: !movie.isMovieInRental }
+            : movie
+        );
+      });
+
+      // refetch();
     },
   });
 
+  function toggleMovieInRental({isMovieInRental, movieSelectedId, pathname}: ToggleMovieInRentalFunction
+  ) {
+    mutation.mutate({ isMovieInRental, movieSelectedId });
+    if (pathname === "/users/movies") {
+      handleCloseMovieModal();
+    }
+  }
+
   return (
     <MoviesContext.Provider
-      value={{ movies, mutation, refetch }}
+      value={{
+        movies,
+        reloadMovieData,
+        isMovieModalOpen,
+        handleCloseMovieModal,
+        handleOpenMovieModal,
+        movieSelectedId,
+        handleSelectedMovieId,
+        isFetchingMovies,
+        toggleMovieInRental,
+      }}
     >
       {children}
     </MoviesContext.Provider>
