@@ -17,7 +17,7 @@ export default class MovieService {
 
   public findAll = async (id:number) => {
     const allMovies = await this._moviesRepository.findAll();
-    const {movies} = await this._usersRepository.findMoviesInRentalByUserId(id);
+    const { movies } = await this._usersRepository.findMoviesInRentalByUserId(id);
 
     const moviesStatusByUser = allMovies.map((movie) => {
       const isMovieInRental = movies.some((userMovie:any) => movie.id === userMovie.id)

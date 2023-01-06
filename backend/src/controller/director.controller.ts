@@ -8,7 +8,7 @@ export class DirectorController {
   constructor(private directorService: IDirectorService) {
   }
 
-  public findAll = async (req: Request, res: Response) => {
+  public findAll = async (_req: Request, res: Response) => {
     
     return this.directorService.findAll()
       .then(directors => res.status(StatusCodes.OK).json(directors));

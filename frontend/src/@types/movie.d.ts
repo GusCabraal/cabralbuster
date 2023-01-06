@@ -1,24 +1,14 @@
-export interface IMoviesDetails {
-    id: number;
-    name: string;
-    description: string;
-    releaseYear: number;
-    image?: string;
-    imdbRating: number;
-    director: {
-      name: string;
-    };
-    category: {
-      name: string;
-    };
-  }
-
-  interface ISimpleMovies {
+export interface Movie {
     id: number;
     name: string;
     image: string;
-  }
-  
-  interface ISimpleMoviesByUsers extends ISimpleMovies {
+    description: string;
+    releaseYear: number;
+    imdbRating: number;
+    ['director.id']: number;
+    ['director.name']: string;
+    ['director.image']: string;
+    ['category.id']: number;
+    ['category.name']: string;
     isMovieInRental: boolean;
   }

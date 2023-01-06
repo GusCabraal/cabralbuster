@@ -1,14 +1,7 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { createContext, ReactNode, useContext, useState } from "react";
-import {
-  QueryObserverResult,
-  RefetchOptions,
-  RefetchQueryFilters,
-  useMutation,
-  UseMutationResult,
-  useQuery,
-} from "react-query";
-import { ISimpleMoviesByUsers } from "../@types/movie";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Movie } from "../@types/movie";
 import { api } from "../axios/config";
 
 interface MoviesProviderProps {
@@ -19,16 +12,21 @@ interface ToggleMovieInRental {
   isMovieInRental: boolean | undefined;
   movieSelectedId: number;
 }
+interface ToggleMovieInRentalFunction {
+  isMovieInRental: boolean | undefined;
+  movieSelectedId: number;
+  pathname: string;
+}
 
 interface MoviesContextData {
-  movies: ISimpleMoviesByUsers[] | undefined;
+  movies: Movie[] | undefined;
   isMovieModalOpen: boolean;
   handleCloseMovieModal: () => void;
   handleOpenMovieModal: () => void;
   movieSelectedId: number;
-  handleSelectedMovieId:  (id:number) => void;
+  handleSelectedMovieId: (id: number) => void;
   isFetchingMovies: boolean;
-  toggleMovieInRental: (data: ToggleMovieInRental) => void
+  toggleMovieInRental: (data: ToggleMovieInRentalFunction) => void;
   reloadMovieData: () => void;
 }
 
@@ -37,8 +35,9 @@ const MoviesContext = createContext<MoviesContextData>({} as MoviesContextData);
 export function MoviesProvider({ children }: MoviesProviderProps) {
   const [isMovieModalOpen, setIsMovieModalOpen] = useState(false);
   const [movieSelectedId, setMovieSelectedId] = useState(1);
+  const queryClient = useQueryClient();
 
-  function handleSelectedMovieId(id:number) {
+  function handleSelectedMovieId(id: number) {
     setMovieSelectedId(id);
   }
 
@@ -50,7 +49,11 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     setIsMovieModalOpen(false);
   }
 
-  const { data: movies, refetch, isFetching: isFetchingMovies } = useQuery<ISimpleMoviesByUsers[]>(
+  const {
+    data: movies,
+    refetch,
+    isFetching: isFetchingMovies,
+  } = useQuery<Movie[]>(
     "movies",
     async () => {
       const config: AxiosRequestConfig = {
@@ -72,9 +75,9 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     }
   );
 
-  function reloadMovieData(){
-    refetch()
- }
+  function reloadMovieData() {
+    refetch();
+  }
   const mutation = useMutation({
     mutationFn: ({ isMovieInRental, movieSelectedId }: ToggleMovieInRental) => {
       const config: AxiosRequestConfig = {
@@ -88,14 +91,25 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
         return api.post(`/users/movies/${movieSelectedId}`, {}, config);
       }
     },
-    onSuccess: () => {
-      refetch();
+    onSuccess: ({ data: movieId }) => {
+      queryClient.setQueryData<Movie[] | undefined>("movies", (data) => {
+        return data?.map((movie: Movie) =>
+          movie.id === movieId
+            ? { ...movie, isMovieInRental: !movie.isMovieInRental }
+            : movie
+        );
+      });
+
+      // refetch();
     },
   });
 
-  function toggleMovieInRental ({ isMovieInRental, movieSelectedId }: ToggleMovieInRental){
-    mutation.mutate({ isMovieInRental, movieSelectedId })
-    handleCloseMovieModal()
+  function toggleMovieInRental({isMovieInRental, movieSelectedId, pathname}: ToggleMovieInRentalFunction
+  ) {
+    mutation.mutate({ isMovieInRental, movieSelectedId });
+    if (pathname === "/users/movies") {
+      handleCloseMovieModal();
+    }
   }
 
   return (

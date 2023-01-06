@@ -1,8 +1,6 @@
 import Modal from "react-modal";
+import { useLocation } from "react-router-dom";
 import { useMovies } from "../context/movieContext";
-import { IMoviesDetails } from "../@types/movie";
-import { useQuery } from "react-query";
-import { api } from "../axios/config";
 import closeImg from "../images/close.svg"
 
 const classGiveBack =
@@ -19,18 +17,13 @@ export function MovieModal() {
     movies,
   } = useMovies();
 
-  const { data, isFetching } = useQuery<IMoviesDetails | null>(
-    `movies-${movieSelectedId}`,
-    async () => {
-      return api
-        .get(`/movies/${movieSelectedId}`)
-        .then((response) => response.data);
-    }
-  );
-
-  const isMovieInRental = movies?.find(
+  const data = (movies?.find(
     (movie) => movie.id === movieSelectedId
-  )?.isMovieInRental;
+  ))
+
+  const {pathname} = useLocation()
+  
+  const isMovieInRental = data?.isMovieInRental;
 
   return (
     <Modal
@@ -39,11 +32,6 @@ export function MovieModal() {
       overlayClassName="bg-slate-900/50 fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center"
       className="w-full max-w-3xl min-h-min bg-white p-10 relative rounded-md flex items-center"
     >
-      {isFetching ? (
-        <div className="w-full h-96 flex items-center justify-center bg-white">
-          <h1 className="text-xl text-cyan-900">Carregando....</h1>
-        </div>
-      ) : (
         <div>
           <button
             type="button"
@@ -59,8 +47,8 @@ export function MovieModal() {
                 <p className="text-justify">{data?.description}</p>
                 <div className="mt-5">
                   <p>Ano de lançamento: {data?.releaseYear}</p>
-                  <p>Diretor: {data?.director.name}</p>
-                  <p>Gênero: {data?.category.name}</p>
+                  <p>Diretor: {data?.['director.name']}</p>
+                  <p>Gênero: {data?.['category.name']}</p>
                 </div>
               </div>
               <img
@@ -71,13 +59,12 @@ export function MovieModal() {
             </div>
             <button
               className={isMovieInRental ? classGiveBack : classRent}
-              onClick={() => toggleMovieInRental({ isMovieInRental, movieSelectedId })}
+              onClick={() => toggleMovieInRental({isMovieInRental, movieSelectedId, pathname})}
             >
               {isMovieInRental ? <p> Devolver filme</p> : <p>Alugar filme</p>}
             </button>
           </section>
         </div>
-      )}
     </Modal>
   );
 }

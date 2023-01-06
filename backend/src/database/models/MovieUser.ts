@@ -3,8 +3,8 @@ import { Model, DataTypes } from 'sequelize';
 import database from '.';
 
 class MovieUser extends Model {
-  declare movie_id: number;
-  declare user_id: number;
+  declare movieId: number;
+  declare userId: number;
 }
 
 MovieUser.init(

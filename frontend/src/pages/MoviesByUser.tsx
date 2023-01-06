@@ -4,10 +4,14 @@ import { MovieCard } from "../components/MovieCard";
 import { useMovies } from "../context/movieContext";
 import { useEffect } from "react";
 import { MovieModal } from "../components/MovieModal";
+import { useLocation } from "react-router-dom";
 
 
 export function MoviesByUser() {
   const { movies, reloadMovieData } = useMovies();
+  const location = useLocation()
+  console.log(location.pathname);
+  
 
   useEffect(() => {
     reloadMovieData();

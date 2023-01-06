@@ -40,7 +40,7 @@ export default class UserController {
   };
 
   public findMoviesInRentalByUserId = async (req: Request, res: Response) => {
-    const {params: { id }, headers: { authorization }} = req;
+    const { params: { id }, headers: { authorization }} = req;
 
     const userMovies = await this._userService.findMoviesInRentalByUserId(Number(id), authorization);
 
@@ -48,11 +48,11 @@ export default class UserController {
   };
 
   public createMoviesUsers = async (req: Request, res: Response) => {
-    const {params: { id }, headers: { authorization }} = req;
+    const { params: { id }, headers: { authorization }} = req;
 
-    await this._userService.createMoviesUsers(Number(id), authorization);
+    return this._userService.createMoviesUsers(Number(id), authorization)
+      .then(movieId => res.status(StatusCodes.CREATED).json(movieId));;
 
-    return res.sendStatus(StatusCodes.CREATED);
   };
 
   public deleteByMovieAndUserId = async (req: Request, res: Response) => {
@@ -60,6 +60,6 @@ export default class UserController {
 
     await this._userService.deleteByMovieAndUserId(Number(id), authorization);
 
-    return res.sendStatus(StatusCodes.NO_CONTENT);
+    return res.status(StatusCodes.OK).json(Number(id));
   };
 }
