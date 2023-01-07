@@ -10,8 +10,6 @@ import { useLocation } from "react-router-dom";
 export function MoviesByUser() {
   const { movies, reloadMovieData } = useMovies();
   const location = useLocation()
-  console.log(location.pathname);
-  
 
   useEffect(() => {
     reloadMovieData();

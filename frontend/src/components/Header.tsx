@@ -32,7 +32,7 @@ function Header() {
         >
           Meus filmes
         </button>
-        <img onClick={() => userLogout()} src={logout} alt="logoutIcon" className="w-10 " />
+        <img onClick={() => userLogout()} src={logout} alt="logoutIcon" className="w-10 fill-amber-500" />
       </div>
     </div>
   );
