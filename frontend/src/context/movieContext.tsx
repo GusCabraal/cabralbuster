@@ -28,6 +28,8 @@ interface MoviesContextData {
   isFetchingMovies: boolean;
   toggleMovieInRental: (data: ToggleMovieInRentalFunction) => void;
   reloadMovieData: () => void;
+  showNextMovie: () => void
+  showPreviousMovie: () => void
 }
 
 const MoviesContext = createContext<MoviesContextData>({} as MoviesContextData);
@@ -112,6 +114,23 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     }
   }
 
+  function showNextMovie() {
+    if (movieSelectedId === movies?.length){
+      setMovieSelectedId(1)
+
+    } else {
+      setMovieSelectedId(movieSelectedId + 1)
+    }
+  }
+
+  function showPreviousMovie() {
+    if (movieSelectedId === 1){
+      setMovieSelectedId((movies?.length) as number)
+    } else {
+      setMovieSelectedId(movieSelectedId - 1)
+    }
+  }
+
   return (
     <MoviesContext.Provider
       value={{
@@ -124,6 +143,9 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
         handleSelectedMovieId,
         isFetchingMovies,
         toggleMovieInRental,
+        showNextMovie,
+        showPreviousMovie
+
       }}
     >
       {children}

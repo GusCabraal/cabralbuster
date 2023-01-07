@@ -1,7 +1,8 @@
 import Modal from "react-modal";
 import { useLocation } from "react-router-dom";
 import { useMovies } from "../context/movieContext";
-import closeImg from "../images/close.svg"
+import closeImg from "../images/close.svg";
+import arrowImg from "../images/arrow.svg";
 
 const classGiveBack =
   "my-3 bg-red-700 w-full py-4 rounded text-white text-lg font-bold hover:bg-red-900";
@@ -15,14 +16,14 @@ export function MovieModal() {
     handleCloseMovieModal,
     movieSelectedId,
     movies,
+    showPreviousMovie,
+    showNextMovie
   } = useMovies();
 
-  const data = (movies?.find(
-    (movie) => movie.id === movieSelectedId
-  ))
+  const data = movies?.find((movie) => movie.id === movieSelectedId);
 
-  const {pathname} = useLocation()
-  
+  const { pathname } = useLocation();
+
   const isMovieInRental = data?.isMovieInRental;
 
   return (
@@ -30,8 +31,15 @@ export function MovieModal() {
       isOpen={isMovieModalOpen}
       onRequestClose={handleCloseMovieModal}
       overlayClassName="bg-slate-900/50 fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center"
-      className="w-full max-w-3xl min-h-min bg-white p-10 relative rounded-md flex items-center"
+      className="w-full max-w-3xl min-h-min bg-white relative rounded-md flex items-center"
     >
+      <div className="flex items-center px-5">
+        <img
+          src={arrowImg}
+          alt="previous movie"
+          className="cursor-pointer -rotate-90"
+          onClick={() => showPreviousMovie()}
+          />
         <div>
           <button
             type="button"
@@ -40,15 +48,15 @@ export function MovieModal() {
           >
             <img src={closeImg} alt="Fechar modal" />
           </button>
-          <section className="flex flex-col	items-center">
-            <h1 className="text-3xl text-center">{data?.name}</h1>
+          <section className="flex flex-col	items-center px-5 py-10">
+            <h1 className="text-3xl text-center mb-5">{data?.name}</h1>
             <div className="flex items-center">
               <div>
                 <p className="text-justify">{data?.description}</p>
                 <div className="mt-5">
                   <p>Ano de lançamento: {data?.releaseYear}</p>
-                  <p>Diretor: {data?.['director.name']}</p>
-                  <p>Gênero: {data?.['category.name']}</p>
+                  <p>Diretor: {data?.["director.name"]}</p>
+                  <p>Gênero: {data?.["category.name"]}</p>
                 </div>
               </div>
               <img
@@ -59,12 +67,25 @@ export function MovieModal() {
             </div>
             <button
               className={isMovieInRental ? classGiveBack : classRent}
-              onClick={() => toggleMovieInRental({isMovieInRental, movieSelectedId, pathname})}
+              onClick={() =>
+                toggleMovieInRental({
+                  isMovieInRental,
+                  movieSelectedId,
+                  pathname,
+                })
+              }
             >
               {isMovieInRental ? <p> Devolver filme</p> : <p>Alugar filme</p>}
             </button>
           </section>
         </div>
+        <img
+          src={arrowImg}
+          alt="prev movie"
+          className="cursor-pointer rotate-90"
+          onClick={() => showNextMovie()}
+        />
+      </div>
     </Modal>
   );
 }
