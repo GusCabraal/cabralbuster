@@ -4,13 +4,20 @@ import { MovieCard } from "../components/MovieCard";
 import { useMovies } from "../context/movieContext";
 import { useEffect, useState } from "react";
 import { MovieModal } from "../components/MovieModal";
+import { SelectCategory } from "../components/SelectCategory";
 
 export function Movies() {
-  const { movies, reloadMovieData, isFetchingMovies, categories } = useMovies();
+  const { movies, reloadMovieData, isFetchingMovies } = useMovies();
   const [selectedCategory, setSelectedCategory] = useState("Selecione");
+  
   useEffect(() => {
     reloadMovieData();
   }, []);
+
+  function handleSelectedCategory (category:string) {
+    setSelectedCategory(category)
+  }
+
 
   if (isFetchingMovies) {
     return (
@@ -24,23 +31,12 @@ export function Movies() {
     <div className="w-screen mx-auto bg-cyan-900">
       <MovieModal />
       <Header />
-      <div>
-        <h1 className="text-5xl text-center py-8 bold text-white">Catalogo</h1>
-        <label className="px-10 mx-20">
-          Categoria:
-          <select
-            value={selectedCategory}
-            onChange={({ target: { value } }) => setSelectedCategory(value)}
-          >
-            <option value="Selecione">Selecione</option>
-            {categories?.map(({ name, id }) => (
-              <option value={name} key={id}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </label>
-
+      <div className="min-h-screen">
+        <h1 className="text-4xl text-center py-8 bold text-white">Catalogo</h1>
+        <SelectCategory
+          handleSelectedCategory={ handleSelectedCategory }
+          selectedCategory={ selectedCategory }
+        />
         <div className="grid gap-10 grid-cols-4 p-10 mx-20">
           {movies
             ?.filter(
