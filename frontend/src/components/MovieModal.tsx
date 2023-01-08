@@ -1,13 +1,13 @@
 import Modal from "react-modal";
 import { useLocation } from "react-router-dom";
 import { useMovies } from "../context/movieContext";
-import closeImg from "../images/close.svg";
-import arrowImg from "../images/arrow.svg";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { GrClose } from "react-icons/gr";
 
 const classGiveBack =
-  "my-3 bg-red-700 w-full py-4 rounded text-white text-lg font-bold hover:bg-red-900";
+  "mt-5 bg-red-700 w-full py-4 rounded text-white text-lg font-bold hover:bg-red-900";
 const classRent =
-  "my-3 bg-green-700 w-full py-4 rounded text-white text-lg font-bold hover:bg-gren-900";
+  "mt-5 bg-green-700 w-full py-4 rounded text-white text-lg font-bold hover:bg-gren-900";
 
 export function MovieModal() {
   const {
@@ -17,7 +17,7 @@ export function MovieModal() {
     movieSelectedId,
     movies,
     showPreviousMovie,
-    showNextMovie
+    showNextMovie,
   } = useMovies();
 
   const data = movies?.find((movie) => movie.id === movieSelectedId);
@@ -34,22 +34,30 @@ export function MovieModal() {
       className="w-full max-w-3xl min-h-min bg-white relative rounded-md flex items-center"
     >
       <div className="flex items-center px-5">
-        <img
-          src={arrowImg}
-          alt="previous movie"
-          className="cursor-pointer -rotate-90"
-          onClick={() => showPreviousMovie()}
-          />
+        {pathname === "/movies" && (
+          <div>
+            <BsChevronCompactLeft
+              className="cursor-pointer"
+              onClick={() => showPreviousMovie()}
+              size={30}
+            />
+          </div>
+        )}
         <div>
           <button
             type="button"
             onClick={handleCloseMovieModal}
             className="absolute top-8 right-8 "
           >
-            <img src={closeImg} alt="Fechar modal" />
+            <GrClose className="cursor-pointer"/>
           </button>
           <section className="flex flex-col	items-center px-5 py-10">
-            <h1 className="text-3xl text-center mb-5">{data?.name}</h1>
+            <div className="mb-5 text-center">
+              <h1 className="text-3xl">{data?.name}</h1>
+              <span className="text-slate-600 font-light	text-sm	">
+                {movieSelectedId}/{movies?.length}
+              </span>
+            </div>
             <div className="flex items-center">
               <div>
                 <p className="text-justify">{data?.description}</p>
@@ -79,12 +87,15 @@ export function MovieModal() {
             </button>
           </section>
         </div>
-        <img
-          src={arrowImg}
-          alt="prev movie"
-          className="cursor-pointer rotate-90"
-          onClick={() => showNextMovie()}
-        />
+        {pathname === "/movies" && (
+          <div>
+            <BsChevronCompactRight
+              className="cursor-pointer"
+              onClick={() => showNextMovie()}
+              size={30}
+            />
+          </div>
+        )}
       </div>
     </Modal>
   );
