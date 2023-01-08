@@ -31,7 +31,7 @@ export default {
       {
         id: 6,
         name: 'Stanley Kubrick',
-        image: `${process.env.DOMAIN}/images/directorsProfile/Stanley_Kubrick.jpeg`
+        image: `${process.env.DOMAIN}/images/directorsProfile/Stanley_Kubrick.jpg`
       },
       {
         id: 7,

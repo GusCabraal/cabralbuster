@@ -23,7 +23,7 @@ export function MoviesByDirector() {
     <div className="w-screen mx-auto bg-cyan-900 min-h-screen">
       <MovieModal />
       <Header />
-      <h1 className="text-4xl text-center py-8 bold text-white">Filmes de {directorName}</h1>
+      <h1 className="text-4xl text-center pt-8 pb-3 font-bold	 text-white">Filmes de {directorName}</h1>
       <div className="grid gap-10 grid-cols-4 p-10 mx-20">
         {movies?.filter((movie) => movie["director.id"] === Number(directorId))
         .map((movie) => (

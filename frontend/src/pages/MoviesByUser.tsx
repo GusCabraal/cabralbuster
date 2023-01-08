@@ -17,7 +17,7 @@ export function MoviesByUser() {
       <MovieModal />
       <Header />
       <div className="min-h-screen">
-        <h1 className="text-4xl text-center py-8 bold text-white">
+        <h1 className="text-4xl text-center pt-8 pb-3 font-bold text-white">
           Meus filmes
         </h1>
         <div className="grid gap-10 grid-cols-4 p-10 mx-20">

@@ -5,6 +5,7 @@ import { useMovies } from "../context/movieContext";
 import { useEffect, useState } from "react";
 import { MovieModal } from "../components/MovieModal";
 import { SelectCategory } from "../components/SelectCategory";
+import { DirectorsContainer } from "../components/DirectorsContainer";
 
 export function Movies() {
   const { movies, reloadMovieData, isFetchingMovies } = useMovies();
@@ -32,7 +33,8 @@ export function Movies() {
       <MovieModal />
       <Header />
       <div className="min-h-screen">
-        <h1 className="text-4xl text-center py-8 bold text-white">Catalogo</h1>
+        <h1 className="text-4xl text-center pt-8 pb-3 font-bold	 text-white">Catálogo</h1>
+        <DirectorsContainer />
         <SelectCategory
           handleSelectedCategory={ handleSelectedCategory }
           selectedCategory={ selectedCategory }

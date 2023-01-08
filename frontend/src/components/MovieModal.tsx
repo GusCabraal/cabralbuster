@@ -54,9 +54,9 @@ export function MovieModal() {
           <section className="flex flex-col	items-center px-5 py-10">
             <div className="mb-5 text-center">
               <h1 className="text-3xl">{data?.name}</h1>
-              <span className="text-slate-600 font-light	text-sm	">
+              {pathname === "/movies" && (<span className="text-slate-600 font-light	text-sm	">
                 {movieSelectedId}/{movies?.length}
-              </span>
+              </span>)}
             </div>
             <div className="flex items-center">
               <div>

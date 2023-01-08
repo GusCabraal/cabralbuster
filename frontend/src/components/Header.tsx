@@ -1,4 +1,5 @@
 import logout from "../images/logout.svg";
+import logo from "../images/logo-cabralbuster.png";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
@@ -14,11 +15,8 @@ function Header() {
     <div className="flex bg-sky-900 ring-2 justify-between w-screen items-center px-20 py-8">
       <button
         onClick={() => navigate("/movies")}
-        className="border-4 rounded-lg border-amber-500"
       >
-        <h1 className="text-4xl text-center tracking-tighter text-amber-500 font-mono font-black p-4">
-          CabralBuster
-        </h1>
+        <img src={logo} className="max-h-28 object-cover" />
       </button>
       <div className="flex items-center gap-x-10">
         <img
