@@ -18,7 +18,7 @@ export function MovieCard({
     handleOpenMovieModal();
   }
   return (
-    <div key={name} className="p-5 rounded-xl shadow-2xl bg-slate-300">
+    <div key={name} className="p-7 rounded-xl shadow-2xl bg-slate-300">
       <button
         onClick={()=> handleSelectedMovie(idMovie)}
         className="flex flex-col items-center w-full"

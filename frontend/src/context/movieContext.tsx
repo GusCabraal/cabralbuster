@@ -2,6 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Category } from "../@types/category";
+import { Director } from "../@types/director";
 import { Movie } from "../@types/movie";
 import { api } from "../axios/config";
 
@@ -22,6 +23,7 @@ interface ToggleMovieInRentalFunction {
 interface MoviesContextData {
   movies: Movie[] | undefined;
   categories: Category[] | undefined;
+  directors: Director[] | undefined;
   isMovieModalOpen: boolean;
   handleCloseMovieModal: () => void;
   handleOpenMovieModal: () => void;
@@ -78,6 +80,7 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
       staleTime: 1000 * 60, // 1 minuto,
     }
   );
+
   const {
     data: categories,
   } = useQuery<Category[]>(
@@ -85,6 +88,20 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     async () => {
       return api
         .get("/categories")
+        .then((response) => response.data);
+    },
+    {
+      staleTime: 1000 * 60, // 1 minuto,
+    }
+  );
+
+  const {
+    data: directors,
+  } = useQuery<Director[]>(
+    "directors",
+    async () => {
+      return api
+        .get("/directors")
         .then((response) => response.data);
     },
     {
@@ -160,6 +177,7 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
         showNextMovie,
         showPreviousMovie,
         categories,
+        directors,
 
       }}
     >
