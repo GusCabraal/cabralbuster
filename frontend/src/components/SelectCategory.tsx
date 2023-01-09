@@ -1,4 +1,4 @@
-import { useMovies } from "../context/movieContext";
+import { useCategories } from "../context/categoryContext";
 
 interface SelectCategoryProps {
   handleSelectedCategory: (category: string) => void;
@@ -9,7 +9,7 @@ export function SelectCategory({
   handleSelectedCategory,
   selectedCategory,
 }: SelectCategoryProps) {
-  const { categories } = useMovies();
+  const { categories } = useCategories();
   return (
     <label className="px-10 mx-20 text-lg">
       <span className="text-white">Categoria:</span>

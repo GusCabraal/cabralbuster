@@ -75,7 +75,7 @@ function Login() {
                   password.length > MIN_PASSWORD_LENGTH
                 )
               }
-              className="mt-10 bg-green-700 w-full p-2 rounded text-white font-bold hover:bg-green-900 disabled:bg-gray-500 "
+              className="mt-10 bg-green-700 w-full py-3 rounded text-white font-bold hover:bg-green-900 disabled:bg-gray-500 "
             >
               Entrar
             </button>

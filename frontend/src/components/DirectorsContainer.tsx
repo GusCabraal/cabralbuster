@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useMovies } from "../context/movieContext";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useDirectors } from "../context/directorContext";
 
 export function DirectorsContainer() {
   const [firstDirectorToShow, setFirstDirectorToShow] = useState(1);
-  const { directors } = useMovies();
+  const { directors } = useDirectors();
 
   function showNextMovie() {
     const firstDirectorOfLastContainer = (Math.floor((directors?.length as number) / 5) * 5 ) + 1;

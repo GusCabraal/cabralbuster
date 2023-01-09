@@ -5,9 +5,11 @@ import { useMovies } from "../context/movieContext";
 import { useEffect } from "react";
 import { MovieModal } from "../components/MovieModal";
 import { useParams } from "react-router-dom";
+import { useDirectors } from "../context/directorContext";
 
 export function MoviesByDirector() {
-  const { movies, reloadMovieData, directors } = useMovies();
+  const { movies, reloadMovieData } = useMovies();
+  const { directors } = useDirectors();
   const { directorId } = useParams();
 
   useEffect(() => {
