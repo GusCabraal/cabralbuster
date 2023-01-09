@@ -29,7 +29,7 @@ export function Movies() {
   }
 
   return (
-    <div className="w-screen mx-auto bg-cyan-900">
+    <div className="w-screen mx-auto bg-sky-900">
       <MovieModal />
       <Header />
       <div className="min-h-screen">

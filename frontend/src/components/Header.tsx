@@ -12,11 +12,12 @@ function Header() {
     navigate("/")
   }
   return (
-    <div className="flex bg-sky-900 ring-2 justify-between w-screen items-center px-20 py-8">
+    <div className="flex bg-sky-900 ring-2 ring-white justify-between w-screen items-center px-20 py-8">
       <button
         onClick={() => navigate("/movies")}
+        className="hover:opacity-80"
       >
-        <img src={logo} className="max-h-28 object-cover" />
+        <img src={logo} className="max-h-20 object-cover" />
       </button>
       <div className="flex items-center gap-x-10">
         <img
@@ -30,7 +31,7 @@ function Header() {
         >
           Meus filmes
         </button>
-        <img onClick={() => userLogout()} src={logout} alt="logoutIcon" className="w-10 fill-amber-500" />
+        <img onClick={() => userLogout()} src={logout} alt="logoutIcon" className="w-10 fill-amber-500 cursor-pointer hover:opacity-80" />
       </div>
     </div>
   );

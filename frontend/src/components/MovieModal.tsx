@@ -51,7 +51,7 @@ export function MovieModal() {
           >
             <GrClose className="cursor-pointer"/>
           </button>
-          <section className="flex flex-col	items-center px-5 py-10">
+          <section className="flex flex-col	items-center px-5 py-10 duration-500">
             <div className="mb-5 text-center">
               <h1 className="text-3xl">{data?.name}</h1>
               {pathname === "/movies" && (<span className="text-slate-600 font-light	text-sm	">
@@ -70,7 +70,7 @@ export function MovieModal() {
               <img
                 src={data?.image}
                 alt={`poster movie-${data?.name}`}
-                className="max-h-72 object-cover m-5"
+                className="max-h-72 object-cover m-5 duration-500"
               />
             </div>
             <button

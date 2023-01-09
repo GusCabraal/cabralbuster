@@ -8,7 +8,9 @@ export function DirectorsContainer() {
   const { directors } = useMovies();
 
   function showNextMovie() {
-    if (firstDirectorToShow === 6) {
+    const firstDirectorOfLastContainer = (Math.floor((directors?.length as number) / 5) * 5 ) + 1;
+    
+    if (firstDirectorToShow === firstDirectorOfLastContainer) {
       setFirstDirectorToShow(1);
     } else {
       setFirstDirectorToShow(firstDirectorToShow + 5);
@@ -16,8 +18,9 @@ export function DirectorsContainer() {
   }
 
   function showPreviousMovie() {
+    const firstDirectorOfLastContainer = (Math.floor((directors?.length as number) / 5) * 5 ) + 1;
     if (firstDirectorToShow === 1) {
-      setFirstDirectorToShow(6);
+      setFirstDirectorToShow(firstDirectorOfLastContainer);
     } else {
       setFirstDirectorToShow(firstDirectorToShow - 5);
     }
@@ -39,7 +42,7 @@ export function DirectorsContainer() {
             ?.filter(
               (director) =>
                 director.id >= firstDirectorToShow &&
-                director.id <= firstDirectorToShow + 4
+                director.id < firstDirectorToShow + 5 // mostrar apenas 5 diretores por vez
             )
             .map((director) => (
               <Link
@@ -52,7 +55,7 @@ export function DirectorsContainer() {
                   alt={director.name}
                   className="max-h-40 object-cover rounded-full p-4 grayscale"
                 />
-                <p>{director.name}</p>
+                <p className="text-white">{director.name}</p>
               </Link>
             ))}
         </div>

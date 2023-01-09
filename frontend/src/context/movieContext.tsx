@@ -32,8 +32,8 @@ interface MoviesContextData {
   isFetchingMovies: boolean;
   toggleMovieInRental: (data: ToggleMovieInRentalFunction) => void;
   reloadMovieData: () => void;
-  showNextMovie: () => void
-  showPreviousMovie: () => void
+  showNextMovie: () => void;
+  showPreviousMovie: () => void;
 }
 
 const MoviesContext = createContext<MoviesContextData>({} as MoviesContextData);
@@ -81,28 +81,20 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     }
   );
 
-  const {
-    data: categories,
-  } = useQuery<Category[]>(
+  const { data: categories } = useQuery<Category[]>(
     "categories",
     async () => {
-      return api
-        .get("/categories")
-        .then((response) => response.data);
+      return api.get("/categories").then((response) => response.data);
     },
     {
       staleTime: 1000 * 60, // 1 minuto,
     }
   );
 
-  const {
-    data: directors,
-  } = useQuery<Director[]>(
+  const { data: directors } = useQuery<Director[]>(
     "directors",
     async () => {
-      return api
-        .get("/directors")
-        .then((response) => response.data);
+      return api.get("/directors").then((response) => response.data);
     },
     {
       staleTime: 1000 * 60, // 1 minuto,
@@ -112,7 +104,7 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   function reloadMovieData() {
     refetch();
   }
-  
+
   const mutation = useMutation({
     mutationFn: ({ isMovieInRental, movieSelectedId }: ToggleMovieInRental) => {
       const config: AxiosRequestConfig = {
@@ -137,8 +129,11 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     },
   });
 
-  function toggleMovieInRental({isMovieInRental, movieSelectedId, pathname}: ToggleMovieInRentalFunction
-  ) {
+  function toggleMovieInRental({
+    isMovieInRental,
+    movieSelectedId,
+    pathname,
+  }: ToggleMovieInRentalFunction) {
     mutation.mutate({ isMovieInRental, movieSelectedId });
     if (pathname === "/users/movies") {
       handleCloseMovieModal();
@@ -146,20 +141,17 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   }
 
   function showNextMovie() {
-    if (movieSelectedId === movies?.length){
-      setMovieSelectedId(1)
-
-    } else {
-      setMovieSelectedId(movieSelectedId + 1)
-    }
+    const isLastMovie = movieSelectedId === movies?.length;
+    const newIndex = isLastMovie ? 1 : movieSelectedId + 1;
+    setMovieSelectedId(newIndex);
   }
 
   function showPreviousMovie() {
-    if (movieSelectedId === 1){
-      setMovieSelectedId((movies?.length) as number)
-    } else {
-      setMovieSelectedId(movieSelectedId - 1)
-    }
+    const isFirstMovie = movieSelectedId === 1;
+    const newIndex = isFirstMovie
+      ? (movies?.length as number)
+      : movieSelectedId - 1;
+    setMovieSelectedId(newIndex);
   }
 
   return (
@@ -178,7 +170,6 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
         showPreviousMovie,
         categories,
         directors,
-
       }}
     >
       {children}

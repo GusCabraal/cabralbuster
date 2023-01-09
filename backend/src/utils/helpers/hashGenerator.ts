@@ -7,8 +7,6 @@ export const hashGenerator = (data: ILogin) => {
   const hashedData = data;
 
   const userPassword = md5(password);
-  // console.log(userPassword);
-  
 
   hashedData.password = userPassword;
 

@@ -103,7 +103,7 @@ export default {
                 imdb_rating: 8.4,
                 director_id: 6,
                 category_id: 5,
-                image: `${process.env.DOMAIN}/images/moviesPoster/O_iluminado.jpg`,
+                image: `${process.env.DOMAIN}/images/moviesPoster/O_iluminado.jpeg`,
             },
             {
                 name: '2001 - Uma Odisseia no Espaço',
@@ -113,7 +113,7 @@ export default {
                 imdb_rating: 8.3,
                 director_id: 6,
                 category_id: 3,
-                image: `${process.env.DOMAIN}/images/moviesPoster/2001-uma-odisseia-no-espaco.jpg`,
+                image: `${process.env.DOMAIN}/images/moviesPoster/2001-uma-odisseia-no-espaco.webp`,
             },
             {
                 name: 'Laranja Mecânica',
@@ -133,7 +133,7 @@ export default {
                 imdb_rating: 8.2,
                 director_id: 2,
                 category_id: 2,
-                image: `${process.env.DOMAIN}/images/moviesPoster/touro_indomavel.jpg`,
+                image: `${process.env.DOMAIN}/images/moviesPoster/touro_indomavel.webp`,
             },
             {
                 name: 'Cães de Aluguel',
