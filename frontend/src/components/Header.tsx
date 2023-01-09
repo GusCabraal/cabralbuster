@@ -12,7 +12,7 @@ function Header() {
     navigate("/")
   }
   return (
-    <div className="flex bg-sky-900 ring-2 ring-white justify-between w-screen items-center px-20 py-8">
+    <div className="flex bg-sky-900 ring-2 justify-between w-screen items-center px-20 py-8">
       <button
         onClick={() => navigate("/movies")}
         className="hover:opacity-80"
