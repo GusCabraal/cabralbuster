@@ -52,7 +52,7 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   }
 
   const { data: movies, refetch, isFetching: isFetchingMovies } = useQuery<Movie[]>(
-    "movies",
+    "Movies",
     async () => {
       const config: AxiosRequestConfig = {
         headers: {
@@ -68,6 +68,7 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     },
     {
       staleTime: 1000 * 60, // 1 minuto,
+      
     }
   );
 

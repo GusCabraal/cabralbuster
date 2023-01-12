@@ -23,7 +23,7 @@ export function MoviesByUser() {
         <div className="grid gap-10 grid-cols-4 p-10 mx-20">
           {movies
             ?.filter(({ isMovieInRental }) => isMovieInRental) // mostra apenas os filmes que estão alugados no momento
-            .map((movie) => (
+            ?.map((movie) => (
               <MovieCard key={movie.id} {...movie} />
             ))}
         </div>

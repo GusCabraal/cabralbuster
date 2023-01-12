@@ -46,7 +46,7 @@ export function Movies() {
                 selectedCategory === movie["category.name"] ||
                 selectedCategory === "Selecione"
             )
-            .map((movie) => (
+            ?.map((movie) => (
               <MovieCard key={movie.id} {...movie} />
             ))}
         </div>
