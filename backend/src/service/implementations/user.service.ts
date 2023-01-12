@@ -2,7 +2,7 @@ import { ILogin } from '../../entities/IUser';
 import IUsersRepository from '../../repositories/interfaces/IUser.repository';
 import NotFoundError from '../../utils/errors/NotFoundError';
 import UnauthorizedError from '../../utils/errors/UnauthorizedError';
-import authenticate from '../../utils/helpers/authenticate';
+import { authenticate } from '../../utils/helpers/authenticate';
 import { hashGenerator } from '../../utils/helpers/hashGenerator';
 import TokenManager from '../../utils/helpers/tokenManager';
 

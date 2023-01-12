@@ -61,9 +61,7 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
       };
       return api
         .get(
-          `/movies/users/${
-            JSON.parse(localStorage.getItem("user") as string)?.id
-          }`,
+          '/movies/users',
           config
         )
         .then((response) => response.data);

@@ -2,7 +2,7 @@ import UnauthorizedError from '../errors/UnauthorizedError';
 
 import TokenManager from './tokenManager';
 
-const authenticate = async (token:string | undefined) => {
+export const authenticate = async (token:string | undefined) => {
 
   if (!token) throw new UnauthorizedError('Token not found');
 
@@ -12,5 +12,3 @@ const authenticate = async (token:string | undefined) => {
 
   return data;
 };
-
-export default authenticate;

@@ -10,6 +10,6 @@ const userRepository = new UserRepository();
 const service = new Service(repository, userRepository);
 const controller = new Controller(service);
 
-router.get('/users/:id', controller.findAll);
+router.get('/users', controller.findAll);
 
 export default router;
