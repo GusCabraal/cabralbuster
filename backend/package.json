@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/server.ts",
+    "predev": "npm run db:reset",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "db:drop": "npx sequelize db:drop",
     "db:create": "npx sequelize db:create",

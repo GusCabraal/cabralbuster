@@ -2,7 +2,7 @@ import { ILogin } from '../../entities/IUser';
 import IUsersRepository from '../../repositories/interfaces/IUser.repository';
 import NotFoundError from '../../utils/errors/NotFoundError';
 import UnauthorizedError from '../../utils/errors/UnauthorizedError';
-import authenticate from '../../utils/helpers/authenticate';
+import { authenticate } from '../../utils/helpers/authenticate';
 import { hashGenerator } from '../../utils/helpers/hashGenerator';
 import TokenManager from '../../utils/helpers/tokenManager';
 
@@ -28,32 +28,6 @@ export default class UserService {
     return {...userWithoutPassword, token };
   };
 
-  public findAll = async (token: string) => {
-
-    const { admin } = await authenticate(token);
-
-    if(!admin) throw new UnauthorizedError('Acesso não autorizado')
-    
-    const users = await this._usersRepository.findAll();
-
-    return users;
-  };
-
-  public deleteById = async (id: string, token: string | undefined) => {
-
-    const { admin } = await authenticate(token);
-
-    if(!admin) throw new UnauthorizedError('Acesso não autorizado')
-    
-    await this._usersRepository.deleteById(id);
-  };
-
-  public deleteUserLogged = async (token: string | undefined) => {
-
-    const { id } = await authenticate(token);
-
-    await this._usersRepository.deleteById(id);
-  };
 
   public findMoviesInRentalByUserId = async (id: number, token:string | undefined) => {
 

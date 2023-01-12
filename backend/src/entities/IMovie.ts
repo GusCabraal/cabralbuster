@@ -4,7 +4,7 @@ export interface ISimpleMovie {
     image: string
 }
 
-export interface ISimpleMovieUser extends ISimpleMovie {
+export interface IMovieUser extends ISimpleMovie {
     isMovieInRental: boolean;
 }
 export interface IMovie extends ISimpleMovie {
