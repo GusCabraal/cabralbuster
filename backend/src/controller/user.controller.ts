@@ -15,30 +15,6 @@ export default class UserController {
     return res.status(StatusCodes.OK).json(user);
   };
 
-  public findAll = async (req: Request, res: Response) => {
-    const {headers: { authorization }} = req;
-
-    const users = await this._userService.findAll(authorization);
-    
-    return res.status(StatusCodes.OK).json(users);
-  };
-
-  public deleteById = async (req: Request, res: Response) => {
-    const {params: { id }, headers: { authorization }} = req;
-
-    await this._userService.deleteById(id, authorization);
-
-    return res.sendStatus(StatusCodes.NO_CONTENT);
-  };
-
-  public deleteUserLogged = async (req: Request, res: Response) => {
-    const { headers: { authorization }} = req;
-
-    await this._userService.deleteUserLogged(authorization);
-
-    return res.sendStatus(StatusCodes.NO_CONTENT);
-  };
-
   public findMoviesInRentalByUserId = async (req: Request, res: Response) => {
     const { params: { id }, headers: { authorization }} = req;
 

@@ -8,11 +8,8 @@ const repository = new Repository();
 const service = new Service(repository);
 const controller = new Controller(service);
 
-router.get('/', controller.findAll);
 router.get('/:id/movies', controller.findMoviesInRentalByUserId);
 router.post('/movies/:id', controller.createMoviesUsers);
-router.delete('/me', controller.deleteUserLogged);
 router.delete('/movies/:id', controller.deleteByMovieAndUserId);
-router.delete('/:id', controller.deleteById);
 
 export default router;

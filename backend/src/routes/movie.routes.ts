@@ -11,7 +11,5 @@ const service = new Service(repository, userRepository);
 const controller = new Controller(service);
 
 router.get('/users/:id', controller.findAll);
-router.get('/:id', controller.findById);
-router.post('/', controller.create);
 
 export default router;

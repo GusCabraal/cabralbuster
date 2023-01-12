@@ -1,5 +1,4 @@
-import { IMovieDTO, ISimpleMovie } from '../../entities/IMovie';
-import { IUserMovies } from '../../entities/IUser';
+import { IMovieDTO } from '../../entities/IMovie';
 import IMovieRepository from '../../repositories/interfaces/IMovie.repository';
 import IUsersRepository from '../../repositories/interfaces/IUser.repository';
 import NotFoundError from '../../utils/errors/NotFoundError';
@@ -24,26 +23,6 @@ export default class MovieService {
       return {...movie, isMovieInRental}
     })
     return moviesStatusByUser;
-  };
-
-  public findById = async (id: string) => {
-    const movie = await this._moviesRepository.findById(id);
-
-    if(!movie) throw new NotFoundError('Movie not found')
-
-    return movie;
-  };
-
-  public create = async (movie: IMovieDTO, token:string | undefined ) => {
-    await authenticate(token)
-    
-    const requiredFields = ['name', 'description', 'releaseYear', 'imdbRating', 'directorId', 'categoryId']
-    
-    validateBody(movie, requiredFields)
-    
-    const newMovie = await this._moviesRepository.create(movie);
-
-    return newMovie;
   };
 
 }
