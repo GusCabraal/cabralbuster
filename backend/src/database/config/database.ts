@@ -1,13 +1,18 @@
-import 'dotenv/config';
-import { Options } from 'sequelize';
+/* eslint-disable import/no-extraneous-dependencies */
+import "dotenv/config";
+import { Options } from "sequelize";
 
 const config: Options = {
-  username: process.env.MYSQLUSER || 'root',
-  password: process.env.MYSQLPASSWORD || 'password',
-  database: process.env.MYSQLDATABASE || 'cabralbuster',
-  host: process.env.MYSQLHOST || 'localhost',
-  port: Number(process.env.MYSQLPORT) || 3306,
-  dialect: 'mysql'
-}
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  host: process.env.PGHOST,
+  port: Number(process.env.PGPORT),
+  dialect: "postgres",
+  logging: true,
+  define: {
+    timestamps: true,
+  },
+};
 
 export = config;
